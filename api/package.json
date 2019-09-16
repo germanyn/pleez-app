@@ -1,0 +1,41 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "Pleez API",
+  "main": "src/index.ts",
+  "scripts": {
+    "start": "nodemon",
+    "build": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "generate": "apollo codegen:generate --localSchemaFile=schema.json --target=typescript --includes=src/**/*.graphql ../src/graphql/types",
+    "introspect": "apollo schema:download --endpoint=http://localhost:4000",
+    "gen-types": "npm run introspect && npm run generate"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@graphql-codegen/cli": "^1.7.0",
+    "@graphql-codegen/introspection": "1.7.0",
+    "@graphql-codegen/typescript": "1.7.0",
+    "@graphql-codegen/typescript-graphql-files-modules": "^1.7.0",
+    "@graphql-codegen/typescript-mongodb": "1.7.0",
+    "@graphql-codegen/typescript-operations": "1.7.0",
+    "@graphql-codegen/typescript-react-apollo": "1.7.0",
+    "@graphql-codegen/typescript-resolvers": "1.7.0",
+    "@types/graphql": "^14.5.0",
+    "@types/lodash": "^4.14.138",
+    "@types/mongoose": "^5.5.17",
+    "@types/node": "^12.7.5",
+    "nodemon": "^1.19.2",
+    "ts-node": "^8.3.0",
+    "webpack": "^4.40.2",
+    "webpack-cli": "^3.3.8"
+  },
+  "dependencies": {
+    "apollo-server": "^2.9.3",
+    "graphql": "^14.2.1",
+    "graphql-import-node": "0.0.4",
+    "lodash": "^4.17.15",
+    "mongoose": "^5.7.1"
+  }
+}

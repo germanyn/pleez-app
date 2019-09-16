@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "module": "commonjs",
+    "target": "esnext",
+    "allowJs": true,
+    "moduleResolution": "node",
+    "typeRoots": [
+      "node_modules/@types",
+      "src/types"
+    ],
+    "esModuleInterop": true
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "include": [
+    "../types/**/*.ts",
+    "src/**/*"
+  ]
+}

@@ -1,0 +1,24 @@
+type Produto {
+  _id: ID!
+  nome: String!
+  descricaco: String
+}
+
+input CriarProdutoInput {
+  nome: String!
+}
+
+input AtualizarProdutoInput {
+  nome: String
+  produtos: [String]
+}
+
+type ProdutoQueries {
+  produtos: [Produto]
+}
+
+type ProdutoMutations {
+  criarProduto(produto: CriarProdutoInput!): Produto
+  atualizarProduto(id: String!, produto: AtualizarProdutoInput!): Produto
+  deletarProduto(id: String!): Produto
+}

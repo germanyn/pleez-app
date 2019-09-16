@@ -1,0 +1,25 @@
+type Categoria {
+  _id: ID!
+  nome: String!
+  produtos: [Produto]
+}
+
+input CriarCategoriaInput {
+  nome: String!
+}
+
+input AtualizarCategoriaInput {
+  nome: String
+  categorias: [String]
+}
+
+extend type Query {
+  categorias: [Categoria]
+}
+
+extend type Mutation {
+  criarCategoria(categoria: CriarCategoriaInput): Categoria
+  atualizarCategoria(id: String!, categoria: AtualizarCategoriaInput!): Categoria
+  deletarCategoria(id: String): String
+}
+
