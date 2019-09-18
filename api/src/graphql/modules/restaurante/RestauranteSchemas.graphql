@@ -1,0 +1,26 @@
+type Restaurante {
+  _id: ID!
+  nome: String!
+  produtos: [Produto]
+}
+
+input CriarRestauranteInput {
+  nome: String!
+}
+
+input AtualizarRestauranteInput {
+  nome: String
+  produtos: [String]
+}
+
+extend type Query {
+  restaurante(id: String): Restaurante
+  restaurantes: [Restaurante]
+}
+
+extend type Mutation {
+  criarRestaurante(restaurante: CriarRestauranteInput): Restaurante!
+  atualizarRestaurante(id: String!, restaurante: AtualizarRestauranteInput!): Restaurante!
+  deletarRestaurante(id: String): Restaurante!
+}
+

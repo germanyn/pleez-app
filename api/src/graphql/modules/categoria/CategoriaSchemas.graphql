@@ -10,16 +10,17 @@ input CriarCategoriaInput {
 
 input AtualizarCategoriaInput {
   nome: String
-  categorias: [String]
+  produtos: [String]
 }
 
 extend type Query {
+  categoria(id: String): Categoria
   categorias: [Categoria]
 }
 
 extend type Mutation {
-  criarCategoria(categoria: CriarCategoriaInput): Categoria
-  atualizarCategoria(id: String!, categoria: AtualizarCategoriaInput!): Categoria
-  deletarCategoria(id: String): String
+  criarCategoria(categoria: CriarCategoriaInput): Categoria!
+  atualizarCategoria(id: String!, categoria: AtualizarCategoriaInput!): Categoria!
+  deletarCategoria(id: String): Categoria!
 }
 

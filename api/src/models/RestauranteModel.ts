@@ -1,10 +1,10 @@
 import { REF_CATEGORIA } from './CategoriaModel';
 import { Schema, model, Types, Document } from 'mongoose';
-import Produto from '../../../types/Produto';
+import Restaurante from '../../../types/Restaurante';
 
-export const REF_PRODUTO = 'Produto'
+export const REF_RESTAURANTE = 'Restaurante'
 
-export interface ProdutoDoc extends Produto, Document {}
+export interface RestauranteDoc extends Restaurante, Document {}
 
 const schema = new Schema({
   nome: {
@@ -18,4 +18,4 @@ const schema = new Schema({
   }]
 });
 
-export default model<ProdutoDoc>(REF_PRODUTO, schema)
+export default model<RestauranteDoc>(REF_RESTAURANTE, schema)

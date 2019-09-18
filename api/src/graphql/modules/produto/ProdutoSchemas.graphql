@@ -2,6 +2,7 @@ type Produto {
   _id: ID!
   nome: String!
   descricaco: String
+  categorias: [Categoria]
 }
 
 input CriarProdutoInput {
@@ -10,15 +11,16 @@ input CriarProdutoInput {
 
 input AtualizarProdutoInput {
   nome: String
-  produtos: [String]
+  categorias: [String]
 }
 
-type ProdutoQueries {
+extend type Query {
+  produto(id: String): Produto
   produtos: [Produto]
 }
 
-type ProdutoMutations {
-  criarProduto(produto: CriarProdutoInput!): Produto
-  atualizarProduto(id: String!, produto: AtualizarProdutoInput!): Produto
-  deletarProduto(id: String!): Produto
+extend type Mutation {
+  criarProduto(produto: CriarProdutoInput!): Produto!
+  atualizarProduto(id: String!, produto: AtualizarProdutoInput!): Produto!
+  deletarProduto(id: String!): Produto!
 }

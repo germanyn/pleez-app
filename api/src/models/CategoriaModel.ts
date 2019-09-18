@@ -1,7 +1,10 @@
 import { REF_PRODUTO } from './ProdutoModel';
-import { Schema, model, Types } from 'mongoose';
+import { Schema, model, Types, Document } from 'mongoose';
+import Categoria from '../../../types/Categoria';
 
 export const REF_CATEGORIA = 'Categoria'
+
+export interface CategoriaDoc extends Categoria, Document {}
 
 const schema = new Schema({
   nome: {
@@ -14,4 +17,4 @@ const schema = new Schema({
   }],
 });
 
-export default model(REF_CATEGORIA, schema)
+export default model<CategoriaDoc>(REF_CATEGORIA, schema)

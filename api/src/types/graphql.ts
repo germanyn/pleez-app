@@ -12,19 +12,47 @@ export type Scalars = {
 
 export type AtualizarCategoriaInput = {
   nome?: Maybe<Scalars['String']>,
-  categorias?: Maybe<Array<Maybe<Scalars['String']>>>,
+  produtos?: Maybe<Array<Maybe<Scalars['String']>>>,
 };
 
 export type AtualizarProdutoInput = {
   nome?: Maybe<Scalars['String']>,
-  produtos?: Maybe<Array<Maybe<Scalars['String']>>>,
+  categorias?: Maybe<Array<Maybe<Scalars['String']>>>,
 };
 
 export type Categoria = {
    __typename?: 'Categoria',
-  id: Scalars['ID'],
+  _id: Scalars['ID'],
   nome: Scalars['String'],
   produtos?: Maybe<Array<Maybe<Produto>>>,
+};
+
+export type CategoriaMutations = {
+   __typename?: 'CategoriaMutations',
+  criarCategoria: Categoria,
+  atualizarCategoria: Categoria,
+  deletarCategoria: Categoria,
+};
+
+
+export type CategoriaMutationsCriarCategoriaArgs = {
+  categoria?: Maybe<CriarCategoriaInput>
+};
+
+
+export type CategoriaMutationsAtualizarCategoriaArgs = {
+  id: Scalars['String'],
+  categoria: AtualizarCategoriaInput
+};
+
+
+export type CategoriaMutationsDeletarCategoriaArgs = {
+  id?: Maybe<Scalars['String']>
+};
+
+export type CategoriaQueries = {
+   __typename?: 'CategoriaQueries',
+  categorias?: Maybe<Array<Maybe<Categoria>>>,
 };
 
 export type CriarCategoriaInput = {
@@ -38,25 +66,6 @@ export type CriarProdutoInput = {
 export type Mutation = {
    __typename?: 'Mutation',
   _empty?: Maybe<Scalars['String']>,
-  criarCategoria?: Maybe<Categoria>,
-  atualizarCategoria?: Maybe<Categoria>,
-  deletarCategoria?: Maybe<Scalars['String']>,
-};
-
-
-export type MutationCriarCategoriaArgs = {
-  categoria?: Maybe<CriarCategoriaInput>
-};
-
-
-export type MutationAtualizarCategoriaArgs = {
-  id: Scalars['String'],
-  categoria: AtualizarCategoriaInput
-};
-
-
-export type MutationDeletarCategoriaArgs = {
-  id?: Maybe<Scalars['String']>
 };
 
 export type Produto = {
@@ -64,13 +73,14 @@ export type Produto = {
   _id: Scalars['ID'],
   nome: Scalars['String'],
   descricaco?: Maybe<Scalars['String']>,
+  categorias?: Maybe<Array<Maybe<Categoria>>>,
 };
 
 export type ProdutoMutations = {
    __typename?: 'ProdutoMutations',
-  criarProduto?: Maybe<Produto>,
-  atualizarProduto?: Maybe<Produto>,
-  deletarProduto?: Maybe<Produto>,
+  criarProduto: Produto,
+  atualizarProduto: Produto,
+  deletarProduto: Produto,
 };
 
 
@@ -97,7 +107,6 @@ export type ProdutoQueries = {
 export type Query = {
    __typename?: 'Query',
   _empty?: Maybe<Scalars['String']>,
-  categorias?: Maybe<Array<Maybe<Categoria>>>,
 };
 
 
@@ -172,14 +181,16 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>,
   String: ResolverTypeWrapper<Scalars['String']>,
+  Mutation: ResolverTypeWrapper<{}>,
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
+  AtualizarCategoriaInput: AtualizarCategoriaInput,
+  AtualizarProdutoInput: AtualizarProdutoInput,
   Categoria: ResolverTypeWrapper<Categoria>,
   ID: ResolverTypeWrapper<Scalars['ID']>,
   Produto: ResolverTypeWrapper<Produto>,
-  Mutation: ResolverTypeWrapper<{}>,
+  CategoriaMutations: ResolverTypeWrapper<CategoriaMutations>,
   CriarCategoriaInput: CriarCategoriaInput,
-  AtualizarCategoriaInput: AtualizarCategoriaInput,
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
-  AtualizarProdutoInput: AtualizarProdutoInput,
+  CategoriaQueries: ResolverTypeWrapper<CategoriaQueries>,
   CriarProdutoInput: CriarProdutoInput,
   ProdutoMutations: ResolverTypeWrapper<ProdutoMutations>,
   ProdutoQueries: ResolverTypeWrapper<ProdutoQueries>,
@@ -189,42 +200,52 @@ export type ResolversTypes = {
 export type ResolversParentTypes = {
   Query: {},
   String: Scalars['String'],
+  Mutation: {},
+  Boolean: Scalars['Boolean'],
+  AtualizarCategoriaInput: AtualizarCategoriaInput,
+  AtualizarProdutoInput: AtualizarProdutoInput,
   Categoria: Categoria,
   ID: Scalars['ID'],
   Produto: Produto,
-  Mutation: {},
+  CategoriaMutations: CategoriaMutations,
   CriarCategoriaInput: CriarCategoriaInput,
-  AtualizarCategoriaInput: AtualizarCategoriaInput,
-  Boolean: Scalars['Boolean'],
-  AtualizarProdutoInput: AtualizarProdutoInput,
+  CategoriaQueries: CategoriaQueries,
   CriarProdutoInput: CriarProdutoInput,
   ProdutoMutations: ProdutoMutations,
   ProdutoQueries: ProdutoQueries,
 };
 
 export type CategoriaResolvers<ContextType = any, ParentType extends ResolversParentTypes['Categoria'] = ResolversParentTypes['Categoria']> = {
-  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
+  _id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
   nome?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   produtos?: Resolver<Maybe<Array<Maybe<ResolversTypes['Produto']>>>, ParentType, ContextType>,
 };
 
+export type CategoriaMutationsResolvers<ContextType = any, ParentType extends ResolversParentTypes['CategoriaMutations'] = ResolversParentTypes['CategoriaMutations']> = {
+  criarCategoria?: Resolver<ResolversTypes['Categoria'], ParentType, ContextType, CategoriaMutationsCriarCategoriaArgs>,
+  atualizarCategoria?: Resolver<ResolversTypes['Categoria'], ParentType, ContextType, RequireFields<CategoriaMutationsAtualizarCategoriaArgs, 'id' | 'categoria'>>,
+  deletarCategoria?: Resolver<ResolversTypes['Categoria'], ParentType, ContextType, CategoriaMutationsDeletarCategoriaArgs>,
+};
+
+export type CategoriaQueriesResolvers<ContextType = any, ParentType extends ResolversParentTypes['CategoriaQueries'] = ResolversParentTypes['CategoriaQueries']> = {
+  categorias?: Resolver<Maybe<Array<Maybe<ResolversTypes['Categoria']>>>, ParentType, ContextType>,
+};
+
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   _empty?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  criarCategoria?: Resolver<Maybe<ResolversTypes['Categoria']>, ParentType, ContextType, MutationCriarCategoriaArgs>,
-  atualizarCategoria?: Resolver<Maybe<ResolversTypes['Categoria']>, ParentType, ContextType, RequireFields<MutationAtualizarCategoriaArgs, 'id' | 'categoria'>>,
-  deletarCategoria?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, MutationDeletarCategoriaArgs>,
 };
 
 export type ProdutoResolvers<ContextType = any, ParentType extends ResolversParentTypes['Produto'] = ResolversParentTypes['Produto']> = {
   _id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
   nome?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   descricaco?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  categorias?: Resolver<Maybe<Array<Maybe<ResolversTypes['Categoria']>>>, ParentType, ContextType>,
 };
 
 export type ProdutoMutationsResolvers<ContextType = any, ParentType extends ResolversParentTypes['ProdutoMutations'] = ResolversParentTypes['ProdutoMutations']> = {
-  criarProduto?: Resolver<Maybe<ResolversTypes['Produto']>, ParentType, ContextType, RequireFields<ProdutoMutationsCriarProdutoArgs, 'produto'>>,
-  atualizarProduto?: Resolver<Maybe<ResolversTypes['Produto']>, ParentType, ContextType, RequireFields<ProdutoMutationsAtualizarProdutoArgs, 'id' | 'produto'>>,
-  deletarProduto?: Resolver<Maybe<ResolversTypes['Produto']>, ParentType, ContextType, RequireFields<ProdutoMutationsDeletarProdutoArgs, 'id'>>,
+  criarProduto?: Resolver<ResolversTypes['Produto'], ParentType, ContextType, RequireFields<ProdutoMutationsCriarProdutoArgs, 'produto'>>,
+  atualizarProduto?: Resolver<ResolversTypes['Produto'], ParentType, ContextType, RequireFields<ProdutoMutationsAtualizarProdutoArgs, 'id' | 'produto'>>,
+  deletarProduto?: Resolver<ResolversTypes['Produto'], ParentType, ContextType, RequireFields<ProdutoMutationsDeletarProdutoArgs, 'id'>>,
 };
 
 export type ProdutoQueriesResolvers<ContextType = any, ParentType extends ResolversParentTypes['ProdutoQueries'] = ResolversParentTypes['ProdutoQueries']> = {
@@ -233,11 +254,12 @@ export type ProdutoQueriesResolvers<ContextType = any, ParentType extends Resolv
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   _empty?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  categorias?: Resolver<Maybe<Array<Maybe<ResolversTypes['Categoria']>>>, ParentType, ContextType>,
 };
 
 export type Resolvers<ContextType = any> = {
   Categoria?: CategoriaResolvers<ContextType>,
+  CategoriaMutations?: CategoriaMutationsResolvers<ContextType>,
+  CategoriaQueries?: CategoriaQueriesResolvers<ContextType>,
   Mutation?: MutationResolvers<ContextType>,
   Produto?: ProdutoResolvers<ContextType>,
   ProdutoMutations?: ProdutoMutationsResolvers<ContextType>,
