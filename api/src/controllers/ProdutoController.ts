@@ -1,7 +1,7 @@
 import ProdutoModel from "../models/ProdutoModel"
 
 export async function listarProdutos() {
-  return ProdutoModel.find({}).exec()
+  return ProdutoModel.find().exec()
 }
 
 export async function obterProduto(id) {

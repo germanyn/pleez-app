@@ -20,39 +20,17 @@ export type AtualizarProdutoInput = {
   categorias?: Maybe<Array<Maybe<Scalars['String']>>>,
 };
 
+export type AtualizarRestauranteInput = {
+  nome?: Maybe<Scalars['String']>,
+  categorias?: Maybe<Array<Maybe<Scalars['String']>>>,
+};
+
 export type Categoria = {
    __typename?: 'Categoria',
   _id: Scalars['ID'],
   nome: Scalars['String'],
   produtos?: Maybe<Array<Maybe<Produto>>>,
-};
-
-export type CategoriaMutations = {
-   __typename?: 'CategoriaMutations',
-  criarCategoria: Categoria,
-  atualizarCategoria: Categoria,
-  deletarCategoria: Categoria,
-};
-
-
-export type CategoriaMutationsCriarCategoriaArgs = {
-  categoria?: Maybe<CriarCategoriaInput>
-};
-
-
-export type CategoriaMutationsAtualizarCategoriaArgs = {
-  id: Scalars['String'],
-  categoria: AtualizarCategoriaInput
-};
-
-
-export type CategoriaMutationsDeletarCategoriaArgs = {
-  id?: Maybe<Scalars['String']>
-};
-
-export type CategoriaQueries = {
-   __typename?: 'CategoriaQueries',
-  categorias?: Maybe<Array<Maybe<Categoria>>>,
+  restaurante?: Maybe<Restaurante>,
 };
 
 export type CriarCategoriaInput = {
@@ -63,9 +41,70 @@ export type CriarProdutoInput = {
   nome: Scalars['String'],
 };
 
+export type CriarRestauranteInput = {
+  nome: Scalars['String'],
+};
+
 export type Mutation = {
    __typename?: 'Mutation',
   _empty?: Maybe<Scalars['String']>,
+  criarCategoria: Categoria,
+  atualizarCategoria: Categoria,
+  deletarCategoria: Categoria,
+  criarProduto: Produto,
+  atualizarProduto: Produto,
+  deletarProduto: Produto,
+  criarRestaurante: Restaurante,
+  atualizarRestaurante: Restaurante,
+  deletarRestaurante: Restaurante,
+};
+
+
+export type MutationCriarCategoriaArgs = {
+  categoria?: Maybe<CriarCategoriaInput>
+};
+
+
+export type MutationAtualizarCategoriaArgs = {
+  id: Scalars['String'],
+  categoria: AtualizarCategoriaInput
+};
+
+
+export type MutationDeletarCategoriaArgs = {
+  id?: Maybe<Scalars['String']>
+};
+
+
+export type MutationCriarProdutoArgs = {
+  produto: CriarProdutoInput
+};
+
+
+export type MutationAtualizarProdutoArgs = {
+  id: Scalars['String'],
+  produto: AtualizarProdutoInput
+};
+
+
+export type MutationDeletarProdutoArgs = {
+  id: Scalars['String']
+};
+
+
+export type MutationCriarRestauranteArgs = {
+  restaurante?: Maybe<CriarRestauranteInput>
+};
+
+
+export type MutationAtualizarRestauranteArgs = {
+  id: Scalars['String'],
+  restaurante: AtualizarRestauranteInput
+};
+
+
+export type MutationDeletarRestauranteArgs = {
+  id?: Maybe<Scalars['String']>
 };
 
 export type Produto = {
@@ -76,37 +115,37 @@ export type Produto = {
   categorias?: Maybe<Array<Maybe<Categoria>>>,
 };
 
-export type ProdutoMutations = {
-   __typename?: 'ProdutoMutations',
-  criarProduto: Produto,
-  atualizarProduto: Produto,
-  deletarProduto: Produto,
-};
-
-
-export type ProdutoMutationsCriarProdutoArgs = {
-  produto: CriarProdutoInput
-};
-
-
-export type ProdutoMutationsAtualizarProdutoArgs = {
-  id: Scalars['String'],
-  produto: AtualizarProdutoInput
-};
-
-
-export type ProdutoMutationsDeletarProdutoArgs = {
-  id: Scalars['String']
-};
-
-export type ProdutoQueries = {
-   __typename?: 'ProdutoQueries',
-  produtos?: Maybe<Array<Maybe<Produto>>>,
-};
-
 export type Query = {
    __typename?: 'Query',
   _empty?: Maybe<Scalars['String']>,
+  categoria?: Maybe<Categoria>,
+  categorias?: Maybe<Array<Maybe<Categoria>>>,
+  produto?: Maybe<Produto>,
+  produtos?: Maybe<Array<Maybe<Produto>>>,
+  restaurante?: Maybe<Restaurante>,
+  restaurantes?: Maybe<Array<Maybe<Restaurante>>>,
+};
+
+
+export type QueryCategoriaArgs = {
+  id?: Maybe<Scalars['String']>
+};
+
+
+export type QueryProdutoArgs = {
+  id?: Maybe<Scalars['String']>
+};
+
+
+export type QueryRestauranteArgs = {
+  id?: Maybe<Scalars['String']>
+};
+
+export type Restaurante = {
+   __typename?: 'Restaurante',
+  _id: Scalars['ID'],
+  nome: Scalars['String'],
+  categorias?: Maybe<Array<Maybe<Categoria>>>,
 };
 
 
@@ -181,58 +220,56 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>,
   String: ResolverTypeWrapper<Scalars['String']>,
-  Mutation: ResolverTypeWrapper<{}>,
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
-  AtualizarCategoriaInput: AtualizarCategoriaInput,
-  AtualizarProdutoInput: AtualizarProdutoInput,
   Categoria: ResolverTypeWrapper<Categoria>,
   ID: ResolverTypeWrapper<Scalars['ID']>,
   Produto: ResolverTypeWrapper<Produto>,
-  CategoriaMutations: ResolverTypeWrapper<CategoriaMutations>,
+  Restaurante: ResolverTypeWrapper<Restaurante>,
+  Mutation: ResolverTypeWrapper<{}>,
   CriarCategoriaInput: CriarCategoriaInput,
-  CategoriaQueries: ResolverTypeWrapper<CategoriaQueries>,
+  AtualizarCategoriaInput: AtualizarCategoriaInput,
   CriarProdutoInput: CriarProdutoInput,
-  ProdutoMutations: ResolverTypeWrapper<ProdutoMutations>,
-  ProdutoQueries: ResolverTypeWrapper<ProdutoQueries>,
+  AtualizarProdutoInput: AtualizarProdutoInput,
+  CriarRestauranteInput: CriarRestauranteInput,
+  AtualizarRestauranteInput: AtualizarRestauranteInput,
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Query: {},
   String: Scalars['String'],
-  Mutation: {},
-  Boolean: Scalars['Boolean'],
-  AtualizarCategoriaInput: AtualizarCategoriaInput,
-  AtualizarProdutoInput: AtualizarProdutoInput,
   Categoria: Categoria,
   ID: Scalars['ID'],
   Produto: Produto,
-  CategoriaMutations: CategoriaMutations,
+  Restaurante: Restaurante,
+  Mutation: {},
   CriarCategoriaInput: CriarCategoriaInput,
-  CategoriaQueries: CategoriaQueries,
+  AtualizarCategoriaInput: AtualizarCategoriaInput,
   CriarProdutoInput: CriarProdutoInput,
-  ProdutoMutations: ProdutoMutations,
-  ProdutoQueries: ProdutoQueries,
+  AtualizarProdutoInput: AtualizarProdutoInput,
+  CriarRestauranteInput: CriarRestauranteInput,
+  AtualizarRestauranteInput: AtualizarRestauranteInput,
+  Boolean: Scalars['Boolean'],
 };
 
 export type CategoriaResolvers<ContextType = any, ParentType extends ResolversParentTypes['Categoria'] = ResolversParentTypes['Categoria']> = {
   _id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
   nome?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   produtos?: Resolver<Maybe<Array<Maybe<ResolversTypes['Produto']>>>, ParentType, ContextType>,
-};
-
-export type CategoriaMutationsResolvers<ContextType = any, ParentType extends ResolversParentTypes['CategoriaMutations'] = ResolversParentTypes['CategoriaMutations']> = {
-  criarCategoria?: Resolver<ResolversTypes['Categoria'], ParentType, ContextType, CategoriaMutationsCriarCategoriaArgs>,
-  atualizarCategoria?: Resolver<ResolversTypes['Categoria'], ParentType, ContextType, RequireFields<CategoriaMutationsAtualizarCategoriaArgs, 'id' | 'categoria'>>,
-  deletarCategoria?: Resolver<ResolversTypes['Categoria'], ParentType, ContextType, CategoriaMutationsDeletarCategoriaArgs>,
-};
-
-export type CategoriaQueriesResolvers<ContextType = any, ParentType extends ResolversParentTypes['CategoriaQueries'] = ResolversParentTypes['CategoriaQueries']> = {
-  categorias?: Resolver<Maybe<Array<Maybe<ResolversTypes['Categoria']>>>, ParentType, ContextType>,
+  restaurante?: Resolver<Maybe<ResolversTypes['Restaurante']>, ParentType, ContextType>,
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   _empty?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  criarCategoria?: Resolver<ResolversTypes['Categoria'], ParentType, ContextType, MutationCriarCategoriaArgs>,
+  atualizarCategoria?: Resolver<ResolversTypes['Categoria'], ParentType, ContextType, RequireFields<MutationAtualizarCategoriaArgs, 'id' | 'categoria'>>,
+  deletarCategoria?: Resolver<ResolversTypes['Categoria'], ParentType, ContextType, MutationDeletarCategoriaArgs>,
+  criarProduto?: Resolver<ResolversTypes['Produto'], ParentType, ContextType, RequireFields<MutationCriarProdutoArgs, 'produto'>>,
+  atualizarProduto?: Resolver<ResolversTypes['Produto'], ParentType, ContextType, RequireFields<MutationAtualizarProdutoArgs, 'id' | 'produto'>>,
+  deletarProduto?: Resolver<ResolversTypes['Produto'], ParentType, ContextType, RequireFields<MutationDeletarProdutoArgs, 'id'>>,
+  criarRestaurante?: Resolver<ResolversTypes['Restaurante'], ParentType, ContextType, MutationCriarRestauranteArgs>,
+  atualizarRestaurante?: Resolver<ResolversTypes['Restaurante'], ParentType, ContextType, RequireFields<MutationAtualizarRestauranteArgs, 'id' | 'restaurante'>>,
+  deletarRestaurante?: Resolver<ResolversTypes['Restaurante'], ParentType, ContextType, MutationDeletarRestauranteArgs>,
 };
 
 export type ProdutoResolvers<ContextType = any, ParentType extends ResolversParentTypes['Produto'] = ResolversParentTypes['Produto']> = {
@@ -242,29 +279,28 @@ export type ProdutoResolvers<ContextType = any, ParentType extends ResolversPare
   categorias?: Resolver<Maybe<Array<Maybe<ResolversTypes['Categoria']>>>, ParentType, ContextType>,
 };
 
-export type ProdutoMutationsResolvers<ContextType = any, ParentType extends ResolversParentTypes['ProdutoMutations'] = ResolversParentTypes['ProdutoMutations']> = {
-  criarProduto?: Resolver<ResolversTypes['Produto'], ParentType, ContextType, RequireFields<ProdutoMutationsCriarProdutoArgs, 'produto'>>,
-  atualizarProduto?: Resolver<ResolversTypes['Produto'], ParentType, ContextType, RequireFields<ProdutoMutationsAtualizarProdutoArgs, 'id' | 'produto'>>,
-  deletarProduto?: Resolver<ResolversTypes['Produto'], ParentType, ContextType, RequireFields<ProdutoMutationsDeletarProdutoArgs, 'id'>>,
-};
-
-export type ProdutoQueriesResolvers<ContextType = any, ParentType extends ResolversParentTypes['ProdutoQueries'] = ResolversParentTypes['ProdutoQueries']> = {
-  produtos?: Resolver<Maybe<Array<Maybe<ResolversTypes['Produto']>>>, ParentType, ContextType>,
-};
-
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   _empty?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  categoria?: Resolver<Maybe<ResolversTypes['Categoria']>, ParentType, ContextType, QueryCategoriaArgs>,
+  categorias?: Resolver<Maybe<Array<Maybe<ResolversTypes['Categoria']>>>, ParentType, ContextType>,
+  produto?: Resolver<Maybe<ResolversTypes['Produto']>, ParentType, ContextType, QueryProdutoArgs>,
+  produtos?: Resolver<Maybe<Array<Maybe<ResolversTypes['Produto']>>>, ParentType, ContextType>,
+  restaurante?: Resolver<Maybe<ResolversTypes['Restaurante']>, ParentType, ContextType, QueryRestauranteArgs>,
+  restaurantes?: Resolver<Maybe<Array<Maybe<ResolversTypes['Restaurante']>>>, ParentType, ContextType>,
+};
+
+export type RestauranteResolvers<ContextType = any, ParentType extends ResolversParentTypes['Restaurante'] = ResolversParentTypes['Restaurante']> = {
+  _id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
+  nome?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  categorias?: Resolver<Maybe<Array<Maybe<ResolversTypes['Categoria']>>>, ParentType, ContextType>,
 };
 
 export type Resolvers<ContextType = any> = {
   Categoria?: CategoriaResolvers<ContextType>,
-  CategoriaMutations?: CategoriaMutationsResolvers<ContextType>,
-  CategoriaQueries?: CategoriaQueriesResolvers<ContextType>,
   Mutation?: MutationResolvers<ContextType>,
   Produto?: ProdutoResolvers<ContextType>,
-  ProdutoMutations?: ProdutoMutationsResolvers<ContextType>,
-  ProdutoQueries?: ProdutoQueriesResolvers<ContextType>,
   Query?: QueryResolvers<ContextType>,
+  Restaurante?: RestauranteResolvers<ContextType>,
 };
 
 

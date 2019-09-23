@@ -8,13 +8,13 @@ export default {
   },
   Mutation: <any> {
     criarRestaurante: async (root, input) => {
-      return await criarRestaurante(input.restaurante)
+      return criarRestaurante(input.restaurante).then(restauranteGetter)
     },
     atualizarRestaurante: async (root, input) => {
-      return await atualizarRestaurante(input.id, input.restaurante)
+      return atualizarRestaurante(input.id, input.restaurante).then(restauranteGetter)
     },
     deletarRestaurante: async (root, input) => {
-      return await deletarRestaurante(input.id)
+      return deletarRestaurante(input.id).then(restauranteGetter)
     }
   }
 }

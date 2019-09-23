@@ -8,13 +8,13 @@ export default {
   },
   Mutation: <any> {
     criarCategoria: async (root, input) => {
-      return await criarCategoria(input.categoria)
+      return criarCategoria(input.categoria).then(categoriaGetter)
     },
     atualizarCategoria: async (root, input) => {
-      return await atualizarCategoria(input.id, input.categoria)
+      return atualizarCategoria(input.id, input.categoria).then(categoriaGetter)
     },
     deletarCategoria: async (root, input) => {
-      return await deletarCategoria(input.id)
+      return deletarCategoria(input.id).then(categoriaGetter)
     }
   }
 }

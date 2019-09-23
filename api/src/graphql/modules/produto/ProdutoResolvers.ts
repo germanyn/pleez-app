@@ -8,13 +8,13 @@ export default {
   },
   Mutation: <any> {
     criarProduto: async (root, input) => {
-      return await criarProduto(input.produto)
+      return criarProduto(input.produto).then(produtoGetter)
     },
     atualizarProduto: async (root, input) => {
-      return await atualizarProduto(input.id, input.produto)
+      return atualizarProduto(input.id, input.produto).then(produtoGetter)
     },
     deletarProduto: async (root, input) => {
-      return await deletarProduto(input.id)
+      return deletarProduto(input.id).then(produtoGetter)
     }
   }
 }

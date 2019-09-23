@@ -1,7 +1,7 @@
 type Restaurante {
   _id: ID!
   nome: String!
-  produtos: [Produto]
+  categorias: [Categoria]
 }
 
 input CriarRestauranteInput {
@@ -10,7 +10,7 @@ input CriarRestauranteInput {
 
 input AtualizarRestauranteInput {
   nome: String
-  produtos: [String]
+  categorias: [String]
 }
 
 extend type Query {

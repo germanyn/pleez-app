@@ -1,7 +1,7 @@
 import CategoriaModel from "../models/CategoriaModel"
 
 export async function listarCategorias() {
-  return await CategoriaModel.find({}).exec()
+  return await CategoriaModel.find().exec()
 }
 
 export async function obterCategoria(id) {
@@ -9,8 +9,7 @@ export async function obterCategoria(id) {
 }
 
 export async function criarCategoria(input) {
-  const categoria = await new CategoriaModel(input).save()
-  return categoria.toObject()
+  return (await CategoriaModel.create(input)).toObject()
 }
 
 export async function atualizarCategoria(id: string, categoria) {

@@ -1,7 +1,8 @@
+import { Categoria } from './../types/graphql';
 import RestauranteModel from "../models/RestauranteModel"
 
 export async function listarRestaurantes() {
-  return RestauranteModel.find({}).exec()
+  return RestauranteModel.find().exec()
 }
 
 export async function obterRestaurante(id) {
@@ -9,8 +10,7 @@ export async function obterRestaurante(id) {
 }
 
 export async function criarRestaurante(input) {
-  const restaurante = await new RestauranteModel(input).save()
-  return restaurante.toObject()
+  return (await RestauranteModel.create(input)).toObject()
 }
 
 export async function atualizarRestaurante(id: string, restaurante) {

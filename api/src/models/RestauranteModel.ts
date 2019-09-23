@@ -11,7 +11,6 @@ const schema = new Schema({
     required: true,
     type: String,
   },
-  descricao: String,
   categorias: [{
     type: Types.ObjectId,
     ref: REF_CATEGORIA,

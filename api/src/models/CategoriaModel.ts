@@ -1,3 +1,4 @@
+import { REF_RESTAURANTE } from './RestauranteModel';
 import { REF_PRODUTO } from './ProdutoModel';
 import { Schema, model, Types, Document } from 'mongoose';
 import Categoria from '../../../types/Categoria';
@@ -15,6 +16,11 @@ const schema = new Schema({
     type: Types.ObjectId,
     ref: REF_PRODUTO,
   }],
+  restaurante: {
+    required: true,
+    type: Types.ObjectId,
+    ref: REF_RESTAURANTE,
+  },
 });
 
 export default model<CategoriaDoc>(REF_CATEGORIA, schema)
