@@ -20,7 +20,6 @@ export default {
 }
 
 export const getCategoria = async (id: any) => {
-  console.log('categoria ',id)
   const categoria = (await obterCategoria(id))
   return categoriaGetter(categoria)
 }

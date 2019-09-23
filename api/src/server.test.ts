@@ -11,12 +11,12 @@ describe('Server', () => {
   beforeEach(async () => {
     server = (await import('./server')).default;
     ready = (await import('./server')).ready;
+    await ready
   });
   afterEach(async () => {
     await server.stop()
   });
   it('Inicia o server sem crashar', async (done) => {
-    await ready
     expect(console.log).toHaveBeenCalledWith(`🚀 Server ready at http://localhost:4000/`)
     done()
   })

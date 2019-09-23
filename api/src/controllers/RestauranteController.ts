@@ -1,4 +1,3 @@
-import { Categoria } from './../types/graphql';
 import RestauranteModel from "../models/RestauranteModel"
 
 export async function listarRestaurantes() {

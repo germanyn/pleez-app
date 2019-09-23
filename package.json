@@ -4,7 +4,8 @@
   "description": "PleezApp: autoatendimento de bares e restaurantes",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "test-w": "jest --watch"
   },
   "repository": {
     "type": "git",

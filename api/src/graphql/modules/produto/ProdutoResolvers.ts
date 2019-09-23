@@ -20,7 +20,6 @@ export default {
 }
 
 export const getProduto = async (id: any) => {
-  console.log('produto ',id)
   const produto = (await obterProduto(id))
   return produtoGetter(produto)
 }
