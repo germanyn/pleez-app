@@ -6,10 +6,10 @@
   "scripts": {
     "start": "nodemon",
     "build": "webpack",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "generate": "graphql-codegen --config codegen.json",
     "introspect": "apollo schema:download --endpoint=http://localhost:4000",
-    "gen-types": "npm run introspect && npm run generate"
+    "gen-types": "npm run introspect && npm run generate",
+    "test": "jest"
   },
   "author": "",
   "license": "ISC",
@@ -23,6 +23,7 @@
     "@graphql-codegen/typescript-react-apollo": "1.7.0",
     "@graphql-codegen/typescript-resolvers": "1.7.0",
     "@types/graphql": "^14.5.0",
+    "@types/jest": "^24.0.18",
     "@types/lodash": "^4.14.138",
     "@types/mongoose": "^5.5.17",
     "@types/node": "^12.7.5",
