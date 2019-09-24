@@ -5,7 +5,8 @@ import logo from 'assets/logo.png'
 import {
   mdiAccountGroup,
   mdiMapMarker,
-  mdiCalendarMonthOutline
+  mdiCalendarMonthOutline,
+  mdiHome
 } from '@mdi/js'
 import Icon from '@mdi/react'
 import { NavLink } from 'react-router-dom';
@@ -51,6 +52,11 @@ const MainDrawer: React.FunctionComponent<Props> = (props) => {
   }
 
   const itensMenu: ItemMenu[] = [
+    {
+      nome: 'Home',
+      icone: mdiHome,
+      path: '',
+    },
     {
       nome: 'Irmãos',
       icone: mdiAccountGroup,

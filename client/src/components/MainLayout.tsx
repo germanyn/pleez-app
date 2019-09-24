@@ -16,6 +16,10 @@ const useStyles = makeStyles((theme: Theme) =>
     content: {
       flexGrow: 1,
       paddingTop: theme.spacing(1),
+      [theme.breakpoints.up('sm')]: {
+        marginLeft: drawerWidth,
+        width: `calc(100% - ${drawerWidth}px)`,
+      },
     },
     toolbar: theme.mixins.toolbar,
   }),
