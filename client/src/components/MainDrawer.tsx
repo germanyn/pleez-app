@@ -81,7 +81,7 @@ const MainDrawer: React.FunctionComponent<Props> = (props) => {
         open={useMediaQuery(theme.breakpoints.up('sm')) || props.open}
         onClose={() => props.onToggleDrawer && props.onToggleDrawer()}
         ModalProps={{
-          keepMounted: true, // Better open performance on mobile.
+          keepMounted: true,
         }}
         classes={{
           paper: classes.drawerPapper,

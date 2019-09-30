@@ -2,6 +2,7 @@ type Produto {
   _id: ID!
   nome: String!
   descricaco: String
+  preco: Float
   categorias: [Categoria]
 }
 

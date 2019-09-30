@@ -2,7 +2,7 @@ import mongoose = require('mongoose')
 
 const DB_NAME = process.env.NODE_ENV === 'production'
   ? 'pleez'
-  : 'dev-pleez'
+  : 'pleez-app'
 
 const url = process.env.NODE_ENV === 'production'
   ? `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0-r9hsu.mongodb.net/${DB_NAME}?retryWrites=true&w=majority`

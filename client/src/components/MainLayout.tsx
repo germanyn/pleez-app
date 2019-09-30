@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Switch } from "react-router-dom"
 import Home from 'pages/Home';
 import { makeStyles, createStyles, Theme, Container } from "@material-ui/core";
+import Cardapio from "pages/admin/Cardapio";
 
 const drawerWidth = 240
 
@@ -35,11 +36,10 @@ const MainLayout: React.FunctionComponent<Props> = (props) => {
 
   return (
     <main className={classes.content}>
-      <Container maxWidth="xs" >
-        <Switch>
-          <Route exact path="/" component={Home} />
-        </Switch>
-      </Container>
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/admin/cardapio" component={ Cardapio } />
+      </Switch>
     </main>
   )
 }

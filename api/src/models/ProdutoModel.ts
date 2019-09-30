@@ -12,6 +12,10 @@ const schema = new Schema({
     type: String,
   },
   descricao: String,
+  preco: {
+    required: true,
+    type: Types,
+  },
   categorias: [{
     type: Types.ObjectId,
     ref: REF_CATEGORIA,
