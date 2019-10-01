@@ -2,7 +2,7 @@ type Categoria {
   _id: ID!
   nome: String!
   produtos: [Produto]
-  restaurante: Restaurante
+  restaurante: Restaurante!
 }
 
 input CriarCategoriaInput {

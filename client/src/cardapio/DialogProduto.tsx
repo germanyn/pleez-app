@@ -86,6 +86,9 @@ const DialogProduto = (props: Props) => {
               label="Preço"
               fullWidth
               type="number"
+              inputProps={{
+                step: "0,01"
+              }}
               onChange={ (evento) => setProduto({
                   ...produto,
                   preco: evento.target.value,

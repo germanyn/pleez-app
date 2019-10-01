@@ -1,10 +1,14 @@
-import { REF_CATEGORIA } from './CategoriaModel';
+import { CategoriaDoc } from './CategoriaModel';
 import { Schema, model, Types, Document } from 'mongoose';
-import Produto from '../../../types/Produto';
 
 export const REF_PRODUTO = 'Produto'
 
-export interface ProdutoDoc extends Produto, Document {}
+export interface ProdutoDoc extends Document {
+  _id: string
+  nome: string
+  descricao?: string
+  categoria: CategoriaDoc['_id']
+}
 
 const schema = new Schema({
   nome: {
@@ -15,11 +19,17 @@ const schema = new Schema({
   preco: {
     required: true,
     type: Types,
-  },
-  categorias: [{
-    type: Types.ObjectId,
-    ref: REF_CATEGORIA,
-  }]
+  }
 });
 
 export default model<ProdutoDoc>(REF_PRODUTO, schema)
+
+import('./CategoriaModel').then(({REF_CATEGORIA})=>{
+  schema.add({
+    categoria: {
+      required: true,
+      type: Types.ObjectId,
+      ref: REF_CATEGORIA,
+    }
+  })
+})

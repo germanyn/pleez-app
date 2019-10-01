@@ -58,19 +58,14 @@ const MainDrawer: React.FunctionComponent<Props> = (props) => {
       path: '',
     },
     {
-      nome: 'Irmãos',
+      nome: 'Restaurante',
       icone: mdiAccountGroup,
-      path: '/irmaos',
+      path: '/admin/restaurante',
     },
     {
-      nome: 'Lojas',
-      icone: mdiMapMarker,
-      path: '/lojas',
-    },
-    {
-      nome: 'Calendários',
-      icone: mdiCalendarMonthOutline,
-      path: '/calendarios',
+      nome: 'Cardápio',
+      icone: mdiAccountGroup,
+      path: '/admin/cardapio',
     },
   ]
 

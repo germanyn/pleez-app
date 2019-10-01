@@ -1,12 +1,14 @@
-import { ApolloServer } from 'apollo-server'
+import express from 'express'
 import schema from './graphql/schema';
+import { graphqlExpress } from 'apollo-server-express';
 
-const server = new ApolloServer({ schema })
+const app = express();
 
-const ready = server.listen().then(({ url }) => {
-  console.log(`🚀 Server ready at ${url}`);
-});
+if(process.env.NODE_ENV === 'production') {
+  app.use(express.static(__dirname + '/public/'));
+  app.get(/.*/, (_req, res) => res.sendFile(__dirname + '/public/index.html'))
+}
+
+app.use('/graphql', express.json(), graphqlExpress({ schema }))
 
 export default server
-
-export { ready }

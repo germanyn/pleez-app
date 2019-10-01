@@ -1,11 +1,15 @@
-import { REF_RESTAURANTE } from './RestauranteModel';
-import { REF_PRODUTO } from './ProdutoModel';
+import { REF_RESTAURANTE, RestauranteDoc } from './RestauranteModel';
+import { REF_PRODUTO, ProdutoDoc } from './ProdutoModel';
 import { Schema, model, Types, Document } from 'mongoose';
-import Categoria from '../../../types/Categoria';
 
 export const REF_CATEGORIA = 'Categoria'
 
-export interface CategoriaDoc extends Categoria, Document {}
+export interface CategoriaDoc extends Document {
+  _id: string
+  nome: string
+  produtos: ProdutoDoc['_id'][]
+  restaurante: RestauranteDoc['_id']
+}
 
 const schema = new Schema({
   nome: {
@@ -17,7 +21,7 @@ const schema = new Schema({
     ref: REF_PRODUTO,
   }],
   restaurante: {
-    required: true,
+    // required: true,
     type: Types.ObjectId,
     ref: REF_RESTAURANTE,
   },

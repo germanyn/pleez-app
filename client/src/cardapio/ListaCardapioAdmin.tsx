@@ -3,8 +3,11 @@ import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import PanelCategoria, { Categoria } from './PanelCategoria';
 import DialogCategoria from './DialogCategoria';
-import { Query, useQuery } from "react-apollo";
-import gql from "graphql-tag";
+import { useQuery, useMutation } from "react-apollo";
+import {
+  CRIAR_CATEGORIA,
+} from 'graphql/mutations'
+import { OBTER_CATEGORIAS } from 'graphql/queries';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -16,59 +19,52 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const BUSCA_CATEGORIAS_ADMIN = gql`
-  query BuscarCategoriasAdmin {
-    categorias {
-      _id
-      nome
-      produtos {
-        _id
-        nome
-        preco
-      }
-    }
-  }
-`
-
 export default function ListaCardapioAdmin() {
   const classes = useStyles();
-
-  const atualizarCategoria = (categoria: Categoria) => {
-    const categoriasAtualizadas = [ ...categorias ]
-    const index = categoriasAtualizadas.findIndex(({_id}) => _id === categoria._id)
-    if(!~index) return
-    categoriasAtualizadas.splice(index, 1, categoria)
-    setCategorias(categoriasAtualizadas)
-  }
-  
+  const [ categorias, setCategorias ] = useState<Categoria[]>([])
+  const [ expanded, setExpanded ] = useState<string | undefined>(undefined)
   const { loading, data, error } = useQuery<{categorias: Categoria[]}, any>(
-    BUSCA_CATEGORIAS_ADMIN
+    OBTER_CATEGORIAS
   );
+  const [ criarCategoria ] = useMutation(CRIAR_CATEGORIA, {
+    update(cache, { data: { criarCategoria } }) {
+      const data = cache.readQuery<{categorias: Categoria[]}>({
+        query: OBTER_CATEGORIAS
+      });
+      if (!data) return
+      const { categorias } = data;
+      cache.writeQuery({
+        query: OBTER_CATEGORIAS,
+        data: { categorias: categorias.concat([criarCategoria]) },
+      });
+    }
+  })
+
+  const adicionarCategoria = async (nome: string) => { 
+    const { data } = await criarCategoria({
+      variables: {
+        input: {
+          nome,
+        }
+      }
+    })
+    console.log({data})
+    setExpanded(data.criarCategoria._id)
+  }
 
   if (loading) return <div>Carregando...</div>
   if (error) return <div>{ error }</div>
-
-  const [ categorias, setCategorias ] = useState(data ? data.categorias : [])
-
-  function adicionarCategoria(nome: string) {
-    setCategorias([
-      ...categorias,
-      {
-        _id: Math.floor(Math.random()*1000),
-        nome,
-        produtos: [],
-      }
-    ])
-  }
+  if (!data) return <div>Sem dados...</div>
 
   return (
     <Paper className={classes.root}>
       <React.Fragment>
-        { categorias.map(categoria =>
-        <PanelCategoria
-          categoria = { categoria }
-          key = { categoria._id }
-          onAtualizarCategoria = { atualizarCategoria }
+        { data.categorias.map(categoria =>
+          <PanelCategoria
+            categoria = { categoria }
+            key = { categoria._id }
+            expanded = { categoria._id === expanded }
+            onExpand = { (id) => setExpanded(id === expanded ? undefined : id) }
           />
           ) }
         <DialogCategoria

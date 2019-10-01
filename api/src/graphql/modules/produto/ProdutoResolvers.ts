@@ -29,9 +29,9 @@ export function produtoGetter(produto) {
   const resolver = {
     ...obj,
   }
-  Object.defineProperty(resolver, 'categorias', {
+  Object.defineProperty(resolver, 'categoria', {
     async get() {
-      return obj.categorias.map(getCategoria)
+      return getCategoria(obj.categoria)
     }
   })
   return resolver

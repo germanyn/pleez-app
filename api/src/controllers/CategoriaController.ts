@@ -9,7 +9,7 @@ export async function obterCategoria(id) {
 }
 
 export async function criarCategoria(input) {
-  return (await CategoriaModel.create(input)).toObject()
+  return await CategoriaModel.create(input)
 }
 
 export async function atualizarCategoria(id: string, categoria) {
@@ -20,4 +20,10 @@ export async function atualizarCategoria(id: string, categoria) {
 
 export async function deletarCategoria(id) {
   return await CategoriaModel.findByIdAndDelete(id).exec()
+}
+
+export async function inserirProdutoEmCategoria(idProduto, idCategoria) {
+  const categoria = await CategoriaModel.findById(idCategoria).exec()
+  categoria.produtos.push(idProduto)
+  return categoria.save()
 }

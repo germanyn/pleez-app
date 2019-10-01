@@ -1,4 +1,5 @@
 import ProdutoModel from "../models/ProdutoModel"
+import { obterCategoria, inserirProdutoEmCategoria } from "./CategoriaController"
 
 export async function listarProdutos() {
   return ProdutoModel.find().exec()
@@ -9,8 +10,9 @@ export async function obterProduto(id) {
 }
 
 export async function criarProduto(input) {
-  const produto = await new ProdutoModel(input).save()
-  return produto.toObject()
+  const produto = await ProdutoModel.create(input)
+  await inserirProdutoEmCategoria(produto._id, input.categoria)
+  return produto
 }
 
 export async function atualizarProduto(id: string, produto) {

@@ -3,16 +3,18 @@ type Produto {
   nome: String!
   descricaco: String
   preco: Float
-  categorias: [Categoria]
+  categoria: Categoria
 }
 
 input CriarProdutoInput {
   nome: String!
+  preco: Float!
+  categoria: String
 }
 
 input AtualizarProdutoInput {
   nome: String
-  categorias: [String]
+  categoria: String
 }
 
 extend type Query {
