@@ -1,19 +1,14 @@
-import React from 'react'
+import React, { useImperativeHandle, forwardRef } from 'react'
 import { makeStyles, Theme, createStyles, Dialog, DialogTitle, DialogContent, TextField, DialogActions, Button } from "@material-ui/core";
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    fab: {
-      position: 'absolute',
-      bottom: theme.spacing(2),
-      right: theme.spacing(2),
-    },
-  }),
-);
-
-type Props = {
+export type Props = {
   onConfirma?: (produtoInput: Required<ProdutoInput>) => void
-  children: React.ReactElement
+  children?: React.ReactElement
+}
+
+export type Ref = {
+  setProduto: React.Dispatch<React.SetStateAction<ProdutoInput>>
+  setOpened: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export type ProdutoInput = {
@@ -26,7 +21,10 @@ const produtoInicial = {
   preco: undefined,
 }
 
-const DialogProduto = (props: Props) => {
+const DialogProduto: React.RefForwardingComponent<Ref, Props> = (
+  props,
+  ref,
+) => {
   const [opened, setOpened] = React.useState(false);
   const [produto, setProduto] = React.useState<ProdutoInput>({...produtoInicial});
 
@@ -34,6 +32,11 @@ const DialogProduto = (props: Props) => {
     setProduto({...produtoInicial})
     setOpened(true);
   };
+
+  useImperativeHandle(ref, ()=>({
+    setProduto,
+    setOpened,
+  }))
 
   const handleCancelar = () => {
     setOpened(false);
@@ -54,7 +57,7 @@ const DialogProduto = (props: Props) => {
   
   return (
     <React.Fragment>
-      { React.cloneElement(props.children, {
+      { props.children && React.cloneElement(props.children, {
         onClick: handleClickOpen,
       }) }
       <Dialog
@@ -111,4 +114,4 @@ const DialogProduto = (props: Props) => {
   )
 }
 
-export default DialogProduto
+export default forwardRef(DialogProduto)

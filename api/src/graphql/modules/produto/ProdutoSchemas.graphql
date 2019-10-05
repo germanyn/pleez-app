@@ -9,11 +9,12 @@ type Produto {
 input CriarProdutoInput {
   nome: String!
   preco: Float!
-  categoria: String
+  categoria: String!
 }
 
 input AtualizarProdutoInput {
   nome: String
+  preco: Float
   categoria: String
 }
 

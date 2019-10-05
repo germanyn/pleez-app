@@ -1,17 +1,17 @@
 import React from 'react';
-import MainToolbar from './components/MainToolbar';
+import MainToolbar from './components/core/MainToolbar';
 import theme from './theme';
 import { CssBaseline, Theme } from '@material-ui/core';
 import { makeStyles, createStyles, ThemeProvider } from '@material-ui/styles';
-import MainDrawer from './components/MainDrawer';
-import MainLayout from './components/MainLayout';
+import MainDrawer from './components/core/MainDrawer';
+import MainLayout from './components/core/MainLayout';
 import { Router } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from 'react-apollo';
 
 const client = new ApolloClient({
-  uri: "/graphql"
+  uri: "http://localhost:4000/graphql"
 });
 
 const drawerWidth = 240

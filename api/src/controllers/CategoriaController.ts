@@ -27,3 +27,12 @@ export async function inserirProdutoEmCategoria(idProduto, idCategoria) {
   categoria.produtos.push(idProduto)
   return categoria.save()
 }
+
+export async function removerProdutoDaCategoria(idProduto: string, idCategoria: string) {
+  const categoria = await CategoriaModel.findById(idCategoria).exec()
+  const index = categoria.produtos.indexOf(idProduto)
+  if(!~index) return categoria
+
+  categoria.produtos.splice(index, 1)
+  return await categoria.save()
+}

@@ -18,7 +18,7 @@ type Props = {
   onConfirma?: (nomeCategoria: string) => void
 }
 
-const DialogNovaCategoria = (props: Props) => {
+const DialogCategoria = (props: Props) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [nomeCategoria, setNomeCategoria] = React.useState('');
@@ -84,4 +84,4 @@ const DialogNovaCategoria = (props: Props) => {
   )
 }
 
-export default DialogNovaCategoria
+export default DialogCategoria
