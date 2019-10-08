@@ -90,7 +90,7 @@ const DialogProduto: React.RefForwardingComponent<Ref, Props> = (
               fullWidth
               type="number"
               inputProps={{
-                step: "0,01"
+                step: "0.01"
               }}
               onChange={ (evento) => setProduto({
                   ...produto,

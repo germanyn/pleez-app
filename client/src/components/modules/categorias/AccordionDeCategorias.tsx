@@ -1,7 +1,8 @@
 import React, { useState, useImperativeHandle, forwardRef } from 'react';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import PanelDaCategoria from './components/PanelDaCategoria';
+import PanelDaCategoria from './PanelDaCategoria';
+import { Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -27,14 +28,19 @@ const AccordionDeCategorias: React.RefForwardingComponent<Ref, Props> = ({
   return (
     <Paper className={classes.root}>
       <React.Fragment>
-        { categorias.map(categoria=>
-          <PanelDaCategoria
-            categoria = { categoria }
-            key = { categoria._id }
-            expanded = { categoria._id === expanded }
-            onExpand = { (id) => setExpanded(id === expanded ? undefined : id) }
-          />
-        ) }
+        { categorias.length
+          ? categorias.map(categoria=>
+              <PanelDaCategoria
+                categoria = { categoria }
+                key = { categoria._id }
+                expanded = { categoria._id === expanded }
+                onExpand = { (id) => setExpanded(id === expanded ? undefined : id) }
+              />
+            )
+          : <Typography variant="h5" style={{ textAlign: 'center', }}>
+            Nenhuma Categoria registrada...
+          </Typography>
+        }
       </React.Fragment>
     </Paper>
   )

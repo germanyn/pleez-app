@@ -3,7 +3,7 @@ import { getProduto } from '../produto/ProdutoResolvers';
 
 export default {
   Query: <any> {
-    categoria: async (id) => getCategoria(id),
+    categoria: async (root, { id }) => getCategoria(id),
     categorias: async () => (await listarCategorias()).map(categoriaGetter),
   },
   Mutation: <any> {

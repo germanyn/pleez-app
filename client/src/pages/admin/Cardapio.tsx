@@ -6,7 +6,7 @@ import AccordionDeCategorias, {
 import { useQuery, useMutation } from 'react-apollo';
 import { OBTER_CATEGORIAS } from 'graphql/queries';
 import { CRIAR_CATEGORIA } from 'graphql/mutations';
-import DialogCategoria from 'components/modules/categorias/DialogCategoria';
+import DialogCategoria, { CategoriaInput } from 'components/modules/categorias/DialogCategoria';
 
 interface Props{}
 
@@ -30,11 +30,11 @@ const Cardapio: React.FunctionComponent<Props> = (props) => {
     }
   })
 
-  const adicionarCategoria = async (nome: string) => { 
+  const adicionarCategoria = async (categoria: CategoriaInput) => { 
     const { data } = await criarCategoria({
       variables: {
         input: {
-          nome,
+          ...categoria,
         }
       }
     })

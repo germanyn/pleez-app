@@ -3,7 +3,7 @@ import { listarProdutos, criarProduto, atualizarProduto, deletarProduto, obterPr
 
 export default {
   Query: {
-    produto: async (id) => getProduto(id),
+    produto: async (root, { id }) => getProduto(id),
     produtos: async () => (await listarProdutos()).map(produtoGetter),
   },
   Mutation: <any> {

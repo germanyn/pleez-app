@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom"
 import Home from 'pages/Home';
 import { makeStyles, createStyles, Theme, Container } from "@material-ui/core";
 import Cardapio from "pages/admin/cardapio";
+import { Login } from "pages/Login";
 
 const drawerWidth = 240
 
@@ -38,6 +39,7 @@ const MainLayout: React.FunctionComponent<Props> = (props) => {
     <main className={classes.content}>
       <Switch>
         <Route exact path="/" component={Home} />
+        <Route exact path="/login" component={ Login } />
         <Route exact path="/admin/cardapio" component={ Cardapio } />
       </Switch>
     </main>

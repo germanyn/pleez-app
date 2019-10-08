@@ -1,0 +1,12 @@
+type Credentials {
+  username: String!
+  password: String!
+  authType: String!
+}
+
+type Register {
+  username: String!
+  password: String!
+  authType: String!
+  role: String!
+}

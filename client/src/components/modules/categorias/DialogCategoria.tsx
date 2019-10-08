@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { forwardRef, useImperativeHandle } from 'react'
 import Icon from "@mdi/react";
 import { Fab, makeStyles, Theme, createStyles, Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions, Button } from "@material-ui/core";
 import theme from "theme";
@@ -14,28 +14,46 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-type Props = {
-  onConfirma?: (nomeCategoria: string) => void
+export type CategoriaInput = {
+  nome: string
 }
 
-const DialogCategoria = (props: Props) => {
+export type Props = {
+  onConfirma?: (categoria: CategoriaInput) => void
+}
+
+export type Ref = {
+  setCategoria: React.Dispatch<React.SetStateAction<CategoriaInput>>
+  setOpened: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+const categoriaInicial = {
+  nome: '',
+}
+
+const DialogCategoria: React.RefForwardingComponent<Ref, Props> = (props, ref) => {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
-  const [nomeCategoria, setNomeCategoria] = React.useState('');
+  const [open, setOpened] = React.useState(false);
+  const [categoria, setCategoria] = React.useState({...categoriaInicial});
 
   const handleClickOpen = () => {
-    setNomeCategoria('')
-    setOpen(true);
+    setCategoria({...categoriaInicial})
+    setOpened(true);
   };
 
   const handleCancelar = () => {
-    setOpen(false);
+    setOpened(false);
   };
 
   const handleConfirma = () => {
-    props.onConfirma && props.onConfirma(nomeCategoria);
-    setOpen(false);
+    props.onConfirma && props.onConfirma(categoria);
+    setOpened(false);
   };
+
+  useImperativeHandle(ref, () => ({
+    setCategoria,
+    setOpened,
+  }))
   
   return (
     <React.Fragment>
@@ -66,8 +84,11 @@ const DialogCategoria = (props: Props) => {
               margin="dense"
               label="Nome"
               fullWidth
-              onChange={ (evento) => setNomeCategoria(evento.target.value) }
-              value={ nomeCategoria }
+              onChange={ (evento) => setCategoria({
+                ...categoria,
+                nome: evento.target.value,
+              }) }
+              value={ categoria.nome }
             />
           </DialogContent>
           <DialogActions>
@@ -84,4 +105,4 @@ const DialogCategoria = (props: Props) => {
   )
 }
 
-export default DialogCategoria
+export default forwardRef(DialogCategoria)
