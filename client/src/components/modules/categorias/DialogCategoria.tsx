@@ -19,7 +19,9 @@ export type CategoriaInput = {
 }
 
 export type Props = {
+  children?: any
   onConfirma?: (categoria: CategoriaInput) => void
+  categoriaInicial?: CategoriaInput
 }
 
 export type Ref = {
@@ -27,17 +29,20 @@ export type Ref = {
   setOpened: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const categoriaInicial = {
+const categoriaInicialDefault = {
   nome: '',
 }
 
-const DialogCategoria: React.RefForwardingComponent<Ref, Props> = (props, ref) => {
+const DialogCategoria: React.RefForwardingComponent<Ref, Props> = ({
+  categoriaInicial = { ...categoriaInicialDefault },
+  ...props
+}, ref) => {
   const classes = useStyles();
   const [open, setOpened] = React.useState(false);
   const [categoria, setCategoria] = React.useState({...categoriaInicial});
 
   const handleClickOpen = () => {
-    setCategoria({...categoriaInicial})
+    setCategoria({ ...categoriaInicial })
     setOpened(true);
   };
 
@@ -57,17 +62,9 @@ const DialogCategoria: React.RefForwardingComponent<Ref, Props> = (props, ref) =
   
   return (
     <React.Fragment>
-      <Fab
-        className={classes.fab}
-        color="primary"
-        onClick={handleClickOpen}
-      >
-        <Icon
-          color={theme.palette.primary.contrastText}
-          path={mdiPlus}
-          size={1}
-        />
-      </Fab>
+      { React.cloneElement(props.children, {
+        onClick: handleClickOpen,
+      }) }
       <Dialog
         open={open}
         onClose={ handleCancelar }

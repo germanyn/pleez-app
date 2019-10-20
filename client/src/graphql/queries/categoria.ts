@@ -5,10 +5,20 @@ export const OBTER_CATEGORIAS = gql`
     categorias {
       _id
       nome
+    }
+  }
+`
+
+export const OBTER_CATEGORIA = gql`
+  query BuscarCategoriaAdmin($id: String!) {
+    categoria(id: $id) {
+      _id
+      nome
       produtos {
         _id
         nome
         preco
+        descricao
       }
     }
   }

@@ -1,7 +1,7 @@
 type Produto {
   _id: ID!
   nome: String!
-  descricaco: String
+  descricao: String
   preco: Float
   categoria: Categoria
 }
@@ -9,12 +9,14 @@ type Produto {
 input CriarProdutoInput {
   nome: String!
   preco: Float!
+  descricao: String
   categoria: String!
 }
 
 input AtualizarProdutoInput {
   nome: String
   preco: Float
+  descricao: String
   categoria: String
 }
 

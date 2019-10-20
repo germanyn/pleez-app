@@ -1,29 +1,29 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom"
-import Home from 'pages/Home';
-import { makeStyles, createStyles, Theme, Container } from "@material-ui/core";
-import Cardapio from "pages/admin/cardapio";
-import { Login } from "pages/Login";
-
-const drawerWidth = 240
+import { makeStyles, withTheme, createStyles, Theme } from "@material-ui/core";
+import rotas from "rotas";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    drawer: {
-      [theme.breakpoints.up('sm')]: {
-        width: drawerWidth,
-        flexShrink: 0,
-      },
-    },
-    content: {
+    root: {
       flexGrow: 1,
-      paddingTop: theme.spacing(1),
-      [theme.breakpoints.up('sm')]: {
-        marginLeft: drawerWidth,
-        width: `calc(100% - ${drawerWidth}px)`,
-      },
+      overflowX: "hidden",
+      display: 'flex',
+      flexDirection: 'column',
+      flex: 1,
     },
-    toolbar: theme.mixins.toolbar,
+    main: {
+      flexGrow: 1,
+      paddingTop: theme.spacing(3),
+      overflowX: "hidden",
+      display: 'flex',
+      flexDirection: 'column',
+      flex: 1,
+    },
+    toolbarSpacing: {
+      ...theme.mixins.toolbar,
+      flexShrink: 0,
+    }
   }),
 );
 
@@ -36,14 +36,27 @@ const MainLayout: React.FunctionComponent<Props> = (props) => {
   const classes = useStyles()
 
   return (
-    <main className={classes.content}>
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/login" component={ Login } />
-        <Route exact path="/admin/cardapio" component={ Cardapio } />
-      </Switch>
-    </main>
+    <div className={classes.root}>
+      <div className = {classes.toolbarSpacing} />
+      <main className={classes.main}>
+        <Switch>
+          {Object.entries(rotas).map(([key, rota])=>
+            <Route
+              key={key}
+              exact={!rota.rotas}
+              path={rota.path}
+              render={props => (
+                <rota.componente
+                  {...props}
+                  rotas={rota.rotas}
+                />
+              )}
+            />
+          )}
+        </Switch>
+      </main>
+      </div>
   )
 }
 
-export default MainLayout
+export default withTheme(MainLayout)

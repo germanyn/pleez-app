@@ -29,6 +29,8 @@
     "typescript": "^3.6.3"
   },
   "dependencies": {
+    "formik": "^1.5.8",
+    "formik-material-ui": "0.0.22",
     "material-table": "^1.50.0"
   }
 }

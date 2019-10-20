@@ -6,24 +6,19 @@ import { makeStyles, createStyles, ThemeProvider } from '@material-ui/styles';
 import MainDrawer from './components/core/MainDrawer';
 import MainLayout from './components/core/MainLayout';
 import { Router } from 'react-router-dom';
-import { createBrowserHistory } from 'history';
-import ApolloClient from "apollo-boost";
 import { ApolloProvider } from 'react-apollo';
+import 'App.css'
+import client from 'plugins/apollo-client';
+import history from 'app-history'
 
-const client = new ApolloClient({
-  uri: "http://localhost:4000/graphql"
-});
-
-const drawerWidth = 240
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
-      // display: 'flex',
+      display: 'flex',
+      height: '100vh',
     },
   })
 )
-
-const history = createBrowserHistory();
 
 const App = () => {
   const classes = useStyles()
@@ -33,9 +28,17 @@ const App = () => {
       <ThemeProvider theme={theme}>
         <Router history={history}>
           <CssBaseline />
-          <MainToolbar onOpenDrawer={() => setDrawerOpen(!drawerOpen)} />
-          <MainDrawer open={drawerOpen} onToggleDrawer={() => setDrawerOpen(!drawerOpen)}/>
-          <MainLayout />
+          <div className={classes.root}>
+            <MainToolbar
+              drawerOpen={ drawerOpen }
+              onOpenDrawer={() => setDrawerOpen(!drawerOpen)}
+            />
+            <MainDrawer
+              open={ drawerOpen }
+              onToggleDrawer={() => setDrawerOpen(!drawerOpen)}
+            />
+            <MainLayout />
+          </div>
         </Router>
       </ThemeProvider>
     </ApolloProvider>

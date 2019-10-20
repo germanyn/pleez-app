@@ -1,12 +1,17 @@
-type Credentials {
-  username: String!
-  password: String!
-  authType: String!
+type Login {
+  restaurante: Restaurante
+  token: String!
 }
 
-type Register {
-  username: String!
-  password: String!
-  authType: String!
-  role: String!
+input RegistroDeRestaurante {
+  nome: String!
+  cnpj: String!
+  email: String!
+  telefone: String!
+  senha: String!
+}
+
+extend type Mutation {
+  registrarRestaurante(registro: RegistroDeRestaurante): Login!
+  logarRestaurante(email: String!, senha: String!): Login!
 }

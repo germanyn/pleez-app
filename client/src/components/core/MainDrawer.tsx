@@ -1,33 +1,55 @@
 import React from 'react'
 import { makeStyles, createStyles, useTheme, withTheme } from "@material-ui/styles";
-import { Drawer, List, ListItem, Divider, ListItemText, Theme, useMediaQuery, ListItemIcon } from "@material-ui/core";
+import { Drawer, List, ListItem, Divider, ListItemText, Theme, useMediaQuery, ListItemIcon, IconButton } from "@material-ui/core";
 import logo from 'assets/logo.png'
-import {
-  mdiAccountGroup,
-  mdiMapMarker,
-  mdiCalendarMonthOutline,
-  mdiHome
-} from '@mdi/js'
 import Icon from '@mdi/react'
-import { NavLink } from 'react-router-dom';
+import { Link as RouterLink, LinkProps as RouterLinkProps } from 'react-router-dom';
+import rotas from 'rotas';
+import clsx from 'clsx';
+import { mdiChevronLeft } from '@mdi/js';
 
 const drawerWidth = 240
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    toolbar: {
+      ...theme.mixins.toolbar,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'flex-end',
+      backgroundColor: theme.palette.primary.main,
+    },
     drawer: {
       [theme.breakpoints.up('sm')]: {
-        width: drawerWidth,
         flexShrink: 0,
       },
     },
     drawerPapper: {
+      // width: drawerWidth,
+    },
+    drawerOpen: {
       width: drawerWidth,
+      transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+    },
+    drawerClose: {
+      transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
+      overflowX: 'hidden',
+      width: theme.spacing(7) + 1,
+      [theme.breakpoints.up('sm')]: {
+        width: theme.spacing(9) + 1,
+      },
     },
     logoWrapper: {
-      ...theme.mixins.toolbar,  
+      display: 'flex',
+      flex: 1,
+      height: theme.mixins.toolbar.minHeight,
       padding: 12,
-      backgroundColor: 'rgb(194, 12, 12);'
     },
     logo: {
       maxHeight: '100%',
@@ -35,6 +57,10 @@ const useStyles = makeStyles((theme: Theme) =>
     }
   }),
 );
+
+const AdapterLink = React.forwardRef<HTMLAnchorElement, RouterLinkProps>((props, ref) => (
+  <RouterLink innerRef={ref} {...props} />
+));
 
 interface Props {
   open?: boolean
@@ -45,28 +71,11 @@ const MainDrawer: React.FunctionComponent<Props> = (props) => {
   const theme = useTheme<Theme>()
   const classes = useStyles();
 
-  interface ItemMenu {
-    nome: string
-    icone: string
-    path: string
-  }
-
-  const itensMenu: ItemMenu[] = [
-    {
-      nome: 'Home',
-      icone: mdiHome,
-      path: '',
-    },
-    {
-      nome: 'Restaurante',
-      icone: mdiAccountGroup,
-      path: '/admin/restaurante',
-    },
-    {
-      nome: 'Cardápio',
-      icone: mdiAccountGroup,
-      path: '/admin/cardapio',
-    },
+  const itensMenu = [
+    rotas['home'],
+    rotas['login'],
+    rotas['registrar-restaurante'],
+    rotas['editar-cardapios'],
   ]
 
   return (
@@ -78,16 +87,34 @@ const MainDrawer: React.FunctionComponent<Props> = (props) => {
         ModalProps={{
           keepMounted: true,
         }}
+        className={clsx(classes.drawer, {
+          [classes.drawerOpen]: props.open,
+          [classes.drawerClose]: !props.open,
+        })}
         classes={{
-          paper: classes.drawerPapper,
+          paper: clsx({
+            [classes.drawerOpen]: props.open,
+            [classes.drawerClose]: !props.open,
+          }),
         }}
       >
-        <div className={classes.logoWrapper}>
-          <img
-            src={logo}
-            alt="Logo"
-            className={classes.logo}
-          />
+        <div className={classes.toolbar}>
+          <div className={classes.logoWrapper}>
+            <img
+              src={logo}
+              alt="Logo"
+              className={classes.logo}
+            />
+          </div>
+          <IconButton
+            onClick={() => props.onToggleDrawer && props.onToggleDrawer()}
+          >
+            <Icon
+              path={mdiChevronLeft}
+              size={1}
+              color={theme.palette.primary.contrastText}
+            />
+          </IconButton>
         </div>
         <Divider />
         <div>
@@ -96,14 +123,14 @@ const MainDrawer: React.FunctionComponent<Props> = (props) => {
               <ListItem
                 button
                 key={item.nome}
-                component={NavLink}
+                component={AdapterLink as any}
                 to={item.path}
-                activeClassName="primary"
+                activeclassname="primary"
               >
                 <ListItemIcon>
-                  <Icon path={item.icone} size={1} />
+                  <Icon path={item.icone || ''} size={1} />
                 </ListItemIcon>
-                <ListItemText primary={item.nome} />
+                <ListItemText primary={item.nomeDoMenu} />
               </ListItem>
             ))}
           </List>

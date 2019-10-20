@@ -7,15 +7,12 @@ export default {
     restaurantes: async () => (await listarRestaurantes()).map(restauranteGetter),
   },
   Mutation: <any> {
-    criarRestaurante: async (root, input) => {
-      return criarRestaurante(input.restaurante).then(restauranteGetter)
-    },
     atualizarRestaurante: async (root, input) => {
       return atualizarRestaurante(input.id, input.restaurante).then(restauranteGetter)
     },
     deletarRestaurante: async (root, input) => {
       return deletarRestaurante(input.id).then(restauranteGetter)
-    }
+    },
   }
 }
 

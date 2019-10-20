@@ -2,14 +2,17 @@ type Restaurante {
   _id: ID!
   nome: String!
   categorias: [Categoria]
-}
-
-input CriarRestauranteInput {
-  nome: String!
+  email: String
+  cnpj: String
+  telefone: String
+  bloqueado: Boolean
 }
 
 input AtualizarRestauranteInput {
   nome: String
+  cnpj: String
+  email: String
+  telefone: String
   categorias: [String]
 }
 
@@ -19,7 +22,6 @@ extend type Query {
 }
 
 extend type Mutation {
-  criarRestaurante(restaurante: CriarRestauranteInput): Restaurante!
   atualizarRestaurante(id: String!, restaurante: AtualizarRestauranteInput!): Restaurante!
   deletarRestaurante(id: String): Restaurante!
 }

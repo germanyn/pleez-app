@@ -19,9 +19,14 @@ extend type Query {
   categorias: [Categoria]
 }
 
+type ProdutosOrdenadosCategoria {
+  indiceA: Int!
+  indiceB: Int!
+}
+
 extend type Mutation {
   criarCategoria(categoria: CriarCategoriaInput): Categoria!
   atualizarCategoria(id: String!, categoria: AtualizarCategoriaInput!): Categoria!
   deletarCategoria(id: String): Categoria!
+  trocarOrdemProdutosDaCategoria(idCategoria: String!, indiceA: Int!, indiceB: Int!): ProdutosOrdenadosCategoria!
 }
-

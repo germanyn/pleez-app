@@ -3,6 +3,7 @@ import { makeStyles, Theme, createStyles, Dialog, DialogTitle, DialogContent, Te
 
 export type Props = {
   onConfirma?: (produtoInput: Required<ProdutoInput>) => void
+  produtoInicial?: ProdutoInput
   children?: React.ReactElement
 }
 
@@ -12,17 +13,22 @@ export type Ref = {
 }
 
 export type ProdutoInput = {
-  nome?: string
-  preco?: string
+  nome: string
+  preco: string
+  descricao: string
 }
 
-const produtoInicial = {
-  nome: undefined,
-  preco: undefined,
+const produtoInicialDefault = {
+  nome: '',
+  descricao: '',
+  preco: '',
 }
 
 const DialogProduto: React.RefForwardingComponent<Ref, Props> = (
-  props,
+  {
+    produtoInicial = {...produtoInicialDefault},
+    ...props
+  },
   ref,
 ) => {
   const [opened, setOpened] = React.useState(false);
@@ -69,14 +75,13 @@ const DialogProduto: React.RefForwardingComponent<Ref, Props> = (
           evento.preventDefault()
           handleConfirma()
         }}>
-          <DialogTitle id="form-dialog-title"> Nova Categoria</DialogTitle>
+          <DialogTitle id="form-dialog-title"> Novo Produto</DialogTitle>
           <DialogContent>
             <TextField
               autoFocus
               margin="dense"
               label="Nome"
               fullWidth
-              defaultValue=""
               onChange={ (evento) => setProduto({
                   ...produto,
                   nome: evento.target.value
@@ -98,6 +103,18 @@ const DialogProduto: React.RefForwardingComponent<Ref, Props> = (
                 })
               }
               value={ produto.preco || '' }
+            />
+            <TextField
+              multiline
+              margin="dense"
+              label="Descricao"
+              fullWidth
+              onChange={ (evento) => setProduto({
+                  ...produto,
+                  descricao: evento.target.value,
+                })
+              }
+              value={ produto.descricao || '' }
             />
           </DialogContent>
           <DialogActions>

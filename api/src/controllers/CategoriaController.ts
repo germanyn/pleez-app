@@ -28,6 +28,22 @@ export async function inserirProdutoEmCategoria(idProduto, idCategoria) {
   return categoria.save()
 }
 
+export async function trocarOrdemProdutos(idCategoria, indiceA, indiceB) {
+  const categoria = await CategoriaModel
+    .findById(idCategoria)
+    .select('produtos')
+    .exec()
+
+  console.log({categoria})
+  ;[ categoria.produtos[indiceA], categoria.produtos[indiceB] ] =
+  [ categoria.produtos[indiceB], categoria.produtos[indiceA] ]
+
+  const result = await categoria.update({
+    produtos: categoria.produtos,
+  })
+  console.log({result})
+}
+
 export async function removerProdutoDaCategoria(idProduto: string, idCategoria: string) {
   const categoria = await CategoriaModel.findById(idCategoria).exec()
   const index = categoria.produtos.indexOf(idProduto)

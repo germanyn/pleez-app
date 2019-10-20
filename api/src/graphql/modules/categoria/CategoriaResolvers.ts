@@ -1,4 +1,11 @@
-import { listarCategorias, criarCategoria, atualizarCategoria, deletarCategoria, obterCategoria } from "../../../controllers/CategoriaController"
+import {
+  listarCategorias,
+  criarCategoria,
+  atualizarCategoria,
+  deletarCategoria,
+  obterCategoria,
+  trocarOrdemProdutos,
+} from "../../../controllers/CategoriaController"
 import { getProduto } from '../produto/ProdutoResolvers';
 
 export default {
@@ -15,6 +22,13 @@ export default {
     },
     deletarCategoria: async (root, input) => {
       return deletarCategoria(input.id).then(categoriaGetter)
+    },
+    trocarOrdemProdutosDaCategoria: async (root, { idCategoria, indiceA, indiceB }) => {
+      await trocarOrdemProdutos(idCategoria, indiceA, indiceB)
+      return {
+        indiceA,
+        indiceB,
+      }
     }
   }
 }
