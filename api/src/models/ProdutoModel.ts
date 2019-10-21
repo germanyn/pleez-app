@@ -5,7 +5,6 @@ export const REF_PRODUTO = 'Produto'
 
 export interface ProdutoDoc extends Document {
   _id: string
-  ordem: number
   nome: string
   descricao?: string
   categoria: CategoriaDoc['_id']
@@ -25,6 +24,9 @@ const schema = new Schema({
 
 const produtoModel = model<ProdutoDoc>(REF_PRODUTO, schema)
 export default produtoModel
+export {
+  schema as ProdutoSchema
+}
 
 import('./CategoriaModel').then(({REF_CATEGORIA})=>{
   schema.add({

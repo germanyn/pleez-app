@@ -1,0 +1,42 @@
+type ItemDoPedido {
+  produto: Produto
+  quantidade: Int
+}
+
+type Pedido {
+  _id: ID!
+  restaurante: Restaurante!
+  cliente: Cliente!
+  data: String
+}
+
+input CriarItemDoPedidoInput {
+  produto: String
+  quantidade: Int
+}
+
+input CriarPedidoInput {
+  restaurante: String!
+  cliente: String!
+  itens: [CriarItemDoPedidoInput]!
+}
+
+input AtualizarItemDoPedidoInput {
+  produto: String
+  quantidade: Int
+}
+
+input AtualizarPedidoInput {
+  itens: [AtualizarItemDoPedidoInput]
+}
+
+extend type Query {
+  pedido(id: ID): Pedido
+  pedidos: [Pedido]
+}
+
+extend type Mutation {
+  criarPedido(pedido: CriarPedidoInput): Pedido!
+  atualizarPedido(id: String!, pedido: AtualizarPedidoInput!): Pedido!
+  deletarPedido(id: String): Pedido!
+}

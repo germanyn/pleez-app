@@ -74,6 +74,7 @@ const MainDrawer: React.FunctionComponent<Props> = (props) => {
   const itensMenu = [
     rotas['home'],
     rotas['login'],
+    rotas['pedidos'],
     rotas['registrar-restaurante'],
     rotas['editar-cardapios'],
   ]

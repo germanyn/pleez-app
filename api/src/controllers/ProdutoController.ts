@@ -1,8 +1,5 @@
 import ProdutoModel from "../models/ProdutoModel"
-import {
-  inserirProdutoEmCategoria,
-  removerProdutoDaCategoria
-} from "./CategoriaController"
+import CategoriaController from "./CategoriaController"
 
 export async function listarProdutos() {
   return ProdutoModel.find().exec()
@@ -15,7 +12,7 @@ export async function obterProduto(id) {
 export async function criarProduto(input) {
   const produto = await ProdutoModel.create(input)
   console.log({categoria: input.categoria})
-  await inserirProdutoEmCategoria(produto._id, input.categoria)
+  await CategoriaController.inserirProdutoEmCategoria(produto._id, input.categoria)
   return produto
 }
 
@@ -29,6 +26,6 @@ export async function deletarProduto(id) {
   const produto = await ProdutoModel.findById(id).exec()
   console.log({produto})
   const { categoria } = produto.toObject()
-  await removerProdutoDaCategoria(id, categoria)
+  await CategoriaController.removerProdutoDaCategoria(id, categoria)
   return produto.remove()
 }

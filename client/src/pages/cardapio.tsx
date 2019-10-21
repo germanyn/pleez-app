@@ -83,7 +83,7 @@ const Cardapio: React.FunctionComponent<Props> = (props) => {
         }
       }
     })
-    history.push(`/cardapios/categorias/${data.criarCategoria._id}`)
+    history.push(`/cardapio/categorias/${data.criarCategoria._id}`)
   }
 
   if (loading) return <div>Carregando...</div>
@@ -105,7 +105,6 @@ const Cardapio: React.FunctionComponent<Props> = (props) => {
         <Typography variant="h4" component="h1" gutterBottom>
           Categorias
         </Typography>
-        <Divider />
         <List style={{
           flex:1,
         }}>
@@ -114,8 +113,8 @@ const Cardapio: React.FunctionComponent<Props> = (props) => {
               button
               key={categoria._id}
               component={AdapterLink as any}
-              to={`/cardapios/categorias/${categoria._id}`}
-              selected={ location.pathname === `/cardapios/categorias/${categoria._id}` }
+              to={`/cardapio/categorias/${categoria._id}`}
+              selected={ location.pathname === `/cardapio/categorias/${categoria._id}` }
             >
               <ListItemText
                 color="primary"

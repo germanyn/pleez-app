@@ -1,30 +1,23 @@
-import {
-  listarCategorias,
-  criarCategoria,
-  atualizarCategoria,
-  deletarCategoria,
-  obterCategoria,
-  trocarOrdemProdutos,
-} from "../../../controllers/CategoriaController"
+import CategoriaController from "../../../controllers/CategoriaController"
 import { getProduto } from '../produto/ProdutoResolvers';
 
 export default {
   Query: <any> {
     categoria: async (root, { id }) => getCategoria(id),
-    categorias: async () => (await listarCategorias()).map(categoriaGetter),
+    categorias: async () => (await CategoriaController.listar()).map(categoriaGetter),
   },
   Mutation: <any> {
     criarCategoria: async (root, input) => {
-      return criarCategoria(input.categoria).then(categoriaGetter)
+      return CategoriaController.criar(input.categoria).then(categoriaGetter)
     },
     atualizarCategoria: async (root, input) => {
-      return atualizarCategoria(input.id, input.categoria).then(categoriaGetter)
+      return CategoriaController.atualizar(input.id, input.categoria).then(categoriaGetter)
     },
     deletarCategoria: async (root, input) => {
-      return deletarCategoria(input.id).then(categoriaGetter)
+      return CategoriaController.deletar(input.id).then(categoriaGetter)
     },
     trocarOrdemProdutosDaCategoria: async (root, { idCategoria, indiceA, indiceB }) => {
-      await trocarOrdemProdutos(idCategoria, indiceA, indiceB)
+      await CategoriaController.trocarOrdemProdutos(idCategoria, indiceA, indiceB)
       return {
         indiceA,
         indiceB,
@@ -34,7 +27,7 @@ export default {
 }
 
 export const getCategoria = async (id: any) => {
-  const categoria = (await obterCategoria(id))
+  const categoria = (await CategoriaController.obter(id))
   return categoriaGetter(categoria)
 }
 

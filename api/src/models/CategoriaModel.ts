@@ -5,7 +5,6 @@ import { Schema, model, Types, Document } from 'mongoose';
 export const REF_CATEGORIA = 'Categoria'
 
 export interface CategoriaDoc extends Document {
-  _id: string
   nome: string
   produtos: ProdutoDoc['_id'][]
   restaurante: RestauranteDoc['_id']

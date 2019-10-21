@@ -1,0 +1,3 @@
+type Cliente {
+  nome: String
+}

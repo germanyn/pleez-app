@@ -1,7 +1,9 @@
-import { mdiHome, mdiKey, mdiAccountGroup, mdiStore, mdiSilverware } from "@mdi/js";
+import { mdiHome, mdiKey, mdiAccountGroup, mdiStore, mdiSilverware, mdiArrowBottomLeft } from "@mdi/js";
 import Home from 'pages/home';
-import EditarCardapio from "pages/cardapio/editar";
+import EditarCardapio from "pages/cardapio";
 import EditarCategoria from "pages/cardapio/categoria";
+import ListaDePedidos from "pages/pedidos";
+import Pedido from "pages/pedido";
 import Login from "pages/login";
 import RegistrarRestaurante from "pages/restaurantes/registrar";
 import RestauranteBloqueado from "pages/restaurantes/em-breve";
@@ -39,16 +41,30 @@ export default {
   //   path: '/restaurantes/:id',
   //   componente: null,
   // },
+  'pedidos': {
+    nomeDoMenu: 'Pedidos',
+    nome: 'Pedidos',
+    icone: mdiArrowBottomLeft,
+    path: '/pedidos',
+    componente: ListaDePedidos,
+    rotas: {
+      'pedido': {
+        nome: 'DetalhePedido',
+        path: '/pedidos/:id',
+        componente: Pedido,
+      },
+    },
+  },
   'editar-cardapios': {
     nomeDoMenu: 'Cardápio',
-    nome: 'Edição do Cardápio',
+    nome: 'Cardápio',
     icone: mdiSilverware,
-    path: '/cardapios',
+    path: '/cardapio',
     componente: EditarCardapio,
     rotas: {
       'editar-categoria': {
         nome: 'EditarCategoria',
-        path: '/cardapios/categorias/:id',
+        path: '/cardapio/categorias/:id',
         componente: EditarCategoria,
       },
     },
