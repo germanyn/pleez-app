@@ -6,7 +6,6 @@ import {
   ListItem,
   ListItemText,
   Divider,
-  Button,
   Theme,
   ListItemIcon,
 } from '@material-ui/core';
@@ -23,7 +22,13 @@ import {
 } from 'react-router-dom';
 import { mdiCheckboxBlankCircle } from '@mdi/js';
 import { red, yellow, blue } from '@material-ui/core/colors';
-import { TipoSituacaoDoPedido, Pedido, situacoesDePedido } from 'shareds/shareds-pedido';
+import {
+  TipoSituacaoDoPedido,
+  Pedido,
+} from '../../../commons/pedidos/types';
+import {
+  situacoesDePedido,
+} from '../../../commons/pedidos/utils';
 
 interface Props extends RouteProps{
   rotas: {[key:string]: Rota}

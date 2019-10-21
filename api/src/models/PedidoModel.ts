@@ -1,3 +1,4 @@
+import { situacoesDePedidoDictionary } from './../../../commons/pedidos/utils';
 import { ClienteDoc, REF_CLIENTE } from './ClienteModel';
 import { ProdutoDoc, ProdutoSchema } from './ProdutoModel';
 import { Schema, model, Types, Document } from 'mongoose';
@@ -33,6 +34,12 @@ const pedidoSchema = new Schema({
     ref: REF_CLIENTE,
   },
   itens: [itemDoPedidoSchema],
+  situacao: {
+    type: String,
+    required: true,
+    enum: Object.keys(situacoesDePedidoDictionary),
+    default: 'recebido',
+  }
 });
 
 const pedidoModel = model<PedidoDoc>(REF_PEDIDO, pedidoSchema)

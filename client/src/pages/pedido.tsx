@@ -1,19 +1,10 @@
 import React from 'react'
 import { RouteProps, useRouteMatch, useHistory } from 'react-router'
 import { withTheme, makeStyles, createStyles, ThemeProvider } from '@material-ui/styles'
-import { Box, Typography, Divider, Table, TableRow, TableCell, IconButton, Theme, useTheme, TableBody, TableFooter, Button, CardContent, Card, TableHead, CardActions } from '@material-ui/core'
-import { useQuery, useMutation } from 'react-apollo'
-import { OBTER_CATEGORIA, OBTER_CATEGORIAS } from 'graphql/queries/categoria'
+import { Box, Typography, Table, TableRow, TableCell, Theme, useTheme, TableBody, Button, CardContent, Card, TableHead, CardActions } from '@material-ui/core'
 import { formatarPreco } from 'utils'
-import Icon from '@mdi/react'
-import { mdiPencil, mdiTrashCan, mdiArrowUp, mdiArrowDown, mdiPlus } from '@mdi/js'
-import DialogCategoria, { CategoriaInput } from 'components/modules/categorias/DialogCategoria'
-import { ATUALIZAR_CATEGORIA, DELETAR_CATEGORIA, TROCAR_PRODUTOS_DA_CATEGORIA } from 'graphql/mutations/categoria'
-import { ATUALIZAR_PRODUTO, DELETAR_PRODUTO, CRIAR_PRODUTO } from 'graphql/mutations/produto'
-import DialogProduto, { ProdutoInput } from 'components/modules/produtos/DialogProduto'
-import rotas from 'rotas'
-import { Pedido, situacoesDePedidoDictionary, somarPrecoTotalPedido } from 'shareds/shareds-pedido'
-import { green } from '@material-ui/core/colors'
+import { Pedido } from '../../../commons/pedidos/types'
+import { situacoesDePedidoDictionary, somarPrecoTotalPedido } from '../../../commons/pedidos/utils'
 
 interface Props extends RouteProps{}
 
@@ -34,11 +25,8 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const DetalhePedido: React.FunctionComponent<Props> = (props) => {
-  const classes = useStyles()
+const DetalhePedido: React.FunctionComponent<Props> = () => {
   const theme = useTheme()
-  const match = useRouteMatch<{id: string}>()
-  const history = useHistory()
 
   // const {
   //   data, loading, error,

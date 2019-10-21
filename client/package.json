@@ -52,6 +52,7 @@
     ]
   },
   "devDependencies": {
-    "@types/dotenv": "^6.1.1"
+    "@types/dotenv": "^6.1.1",
+    "react-app-rewired": "^2.1.3"
   }
 }
