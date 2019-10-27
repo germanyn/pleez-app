@@ -10,5 +10,5 @@ const schema = new Schema({
   nome: String,
 });
 
-const clienteModel = model<ClienteDoc>(REF_CLIENTE, schema)
-export default clienteModel
+const ClienteModel = model<ClienteDoc>(REF_CLIENTE, schema)
+export default ClienteModel

@@ -8,6 +8,8 @@ type Pedido {
   restaurante: Restaurante!
   cliente: Cliente!
   data: String
+  situacao: String
+  itens: [ItemDoPedido]
 }
 
 input CriarItemDoPedidoInput {
@@ -27,12 +29,17 @@ input AtualizarItemDoPedidoInput {
 }
 
 input AtualizarPedidoInput {
+  situacao: String
   itens: [AtualizarItemDoPedidoInput]
 }
 
+input FiltrosDePedido {
+  situacao: [String]
+}
+
 extend type Query {
-  pedido(id: ID): Pedido
-  pedidos: [Pedido]
+  pedido(id: String!): Pedido
+  pedidos(filtros: FiltrosDePedido): [Pedido]
 }
 
 extend type Mutation {

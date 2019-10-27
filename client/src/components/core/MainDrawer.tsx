@@ -72,11 +72,12 @@ const MainDrawer: React.FunctionComponent<Props> = (props) => {
   const classes = useStyles();
 
   const itensMenu = [
-    rotas['home'],
     rotas['login'],
-    rotas['pedidos'],
     rotas['registrar-restaurante'],
+    rotas['home'],
+    rotas['pedidos'],
     rotas['editar-cardapios'],
+    rotas['editar-restaurante'],
   ]
 
   return (

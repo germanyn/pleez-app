@@ -1,4 +1,4 @@
-import { mdiHome, mdiKey, mdiAccountGroup, mdiStore, mdiSilverware, mdiArrowBottomLeft } from "@mdi/js";
+import { mdiHome, mdiKey, mdiAccountGroup, mdiStore, mdiSilverware, mdiArrowBottomLeft, mdiSquareEditOutline } from "@mdi/js";
 import Home from 'pages/home';
 import EditarCardapio from "pages/cardapio";
 import EditarCategoria from "pages/cardapio/categoria";
@@ -7,6 +7,7 @@ import Pedido from "pages/pedido";
 import Login from "pages/login";
 import RegistrarRestaurante from "pages/restaurantes/registrar";
 import RestauranteBloqueado from "pages/restaurantes/em-breve";
+import Restaurante from "pages/restaurante";
 
 export default {
   'home': {
@@ -31,16 +32,17 @@ export default {
   'registrar-restaurante': {
     nomeDoMenu: 'Cadastrar',
     nome: 'Cadastro de Restaurante',
-    icone: mdiStore,
+    icone: mdiSquareEditOutline,
     path: '/restaurantes/registrar',
     componente: RegistrarRestaurante,
   },
-  // 'restaurante': {
-  //   nome: 'Restaurante',
-  //   icone: mdiAccountGroup,
-  //   path: '/restaurantes/:id',
-  //   componente: null,
-  // },
+  'editar-restaurante': {
+    nomeDoMenu: 'Restaurante',
+    nome: 'Configurar Restaurante',
+    icone: mdiStore,
+    path: '/restaurante',
+    componente: Restaurante,
+  },
   'pedidos': {
     nomeDoMenu: 'Pedidos',
     nome: 'Pedidos',

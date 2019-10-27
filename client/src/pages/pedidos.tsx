@@ -22,13 +22,9 @@ import {
 } from 'react-router-dom';
 import { mdiCheckboxBlankCircle } from '@mdi/js';
 import { red, yellow, blue } from '@material-ui/core/colors';
-import {
-  TipoSituacaoDoPedido,
-  Pedido,
-} from '../../../commons/pedidos/types';
-import {
-  situacoesDePedido,
-} from '../../../commons/pedidos/utils';
+import { situacoesDePedido, ordernarPorTipoDeSituacao } from 'shareds/pedido-utils'
+import { Pedido, TipoSituacaoDoPedido } from 'types/pedido'
+import { OBTER_PEDIDOS } from 'graphql/queries/pedido';
 
 interface Props extends RouteProps{
   rotas: {[key:string]: Rota}
@@ -56,34 +52,7 @@ const ListaDePedidos: React.FunctionComponent<Props> = (props) => {
   const classes = useStyles()
   const history = useHistory()
 
-  // const { loading, data, error } = useQuery<{pedidos: any[], errors: any}, any>(OBTER_PEDIDOS);
-  const { loading, data, error } = {
-    data: {
-      pedidos: [
-        {
-          _id: 'sasdbasdb-32-vdab-33-b',
-          nome: 'Nome Completo',
-          situacao: 'recebido',
-          itens: [],
-        },
-        {
-          _id: 'sasdbasdb-32-vdab-33-c',
-          nome: 'Nome Completo',
-          situacao: 'em-preparo',
-          itens: [],
-        },
-        {
-          _id: 'sasdbasdb-32-vdab-33-d',
-          nome: 'Nome Completo',
-          situacao: 'finalizado',
-          itens: [],
-        },
-      ] as Pedido[],
-      errors: null,
-    },
-    loading: false,
-    error: null,
-  }
+  const { loading, data, error } = useQuery<{pedidos: Pedido[], errors: any}, any>(OBTER_PEDIDOS);
   
   const IconeDaSituacaoDoPedido = (props:{
     situacao: TipoSituacaoDoPedido,
@@ -132,7 +101,7 @@ const ListaDePedidos: React.FunctionComponent<Props> = (props) => {
         <List style={{
           flex:1,
         }}>
-          {data.pedidos.map(pedido=>
+          {data.pedidos.sort(ordernarPorTipoDeSituacao).map(pedido=>
             <ListItem
               button
               key={pedido._id}
@@ -142,7 +111,7 @@ const ListaDePedidos: React.FunctionComponent<Props> = (props) => {
             >
               <ListItemText
                 color="primary"
-                primary={pedido.nome}
+                primary={pedido.cliente.nome}
               />
               <ListItemIcon
                 style={{

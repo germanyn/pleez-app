@@ -1,4 +1,3 @@
-import { situacoesDePedidoDictionary } from './../../../commons/pedidos/utils';
 import { ClienteDoc, REF_CLIENTE } from './ClienteModel';
 import { ProdutoDoc, ProdutoSchema } from './ProdutoModel';
 import { Schema, model, Types, Document } from 'mongoose';
@@ -8,12 +7,13 @@ export const REF_PEDIDO = 'Pedido'
 export interface ItemDoPedidoDoc extends Document {
   quantidade: number
   produto: ProdutoDoc
-  precoTotal: number
 }
 
 export interface PedidoDoc extends Document {
   cliente: ClienteDoc['_id']
   data: Date
+  situacao: 'recebido' | 'em-preparo' | 'finalizado'
+  itens: ItemDoPedidoDoc[]
 }
 
 const itemDoPedidoSchema = new Schema({
@@ -24,7 +24,7 @@ const itemDoPedidoSchema = new Schema({
   produto: ProdutoSchema,
 });
 
-const pedidoSchema = new Schema({
+const PedidoSchema = new Schema({
   restaurante: {
     type: Types.ObjectId,
     required: true,
@@ -37,10 +37,29 @@ const pedidoSchema = new Schema({
   situacao: {
     type: String,
     required: true,
-    enum: Object.keys(situacoesDePedidoDictionary),
+    enum: [
+      'recebido',
+      'em-preparo',
+      'finalizado',
+      'rejeitado',
+      'cancelado',
+    ],
     default: 'recebido',
-  }
+  },
+  dataHora: {
+    type: Date,
+    required: true,
+    default: Date.now,
+  },
 });
 
-const pedidoModel = model<PedidoDoc>(REF_PEDIDO, pedidoSchema)
-export default pedidoModel
+PedidoSchema.index({
+  restaurante: 1,
+})
+
+PedidoSchema.index({
+  cliente: 1,
+})
+
+const PedidoModel = model<PedidoDoc>(REF_PEDIDO, PedidoSchema)
+export default PedidoModel

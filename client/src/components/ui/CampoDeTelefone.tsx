@@ -3,7 +3,6 @@ import { TextField } from 'formik-material-ui';
 const InputMask = require("react-input-mask");
 
 function TextMaskCustom(props: any) {
-  console.log({slice: props.value.slice(4,5)})
   return (
     <InputMask
       {...props}

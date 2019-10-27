@@ -22,8 +22,8 @@ const schema = new Schema({
   },
 });
 
-const produtoModel = model<ProdutoDoc>(REF_PRODUTO, schema)
-export default produtoModel
+const ProdutoModel = model<ProdutoDoc>(REF_PRODUTO, schema)
+export default ProdutoModel
 export {
   schema as ProdutoSchema
 }

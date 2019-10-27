@@ -1,5 +1,4 @@
-import { CategoriaDoc } from './../models/CategoriaModel';
-import { Model, model, Document } from 'mongoose';
+import { Model } from 'mongoose';
 export default class GenericController<T extends typeof Model> {
   model: T
   
@@ -7,8 +6,18 @@ export default class GenericController<T extends typeof Model> {
     this.model = model
   }
   
-  listar() {
-    return this.model.find().exec()
+  listar(filtros: { [field: string]: string | string[] } = {}) {
+    const conditions = Object
+      .entries(filtros)
+      .reduce(({...query}, [campo, valor])=>{
+        Array.isArray(campo)
+          ? query[campo] = {
+            $in: valor
+          }
+          : query[campo]=valor
+        return query
+      }, {})
+    return this.model.find(conditions).exec()
   }
   
   obter(id) {

@@ -3,68 +3,95 @@ import { RouteProps, useRouteMatch, useHistory } from 'react-router'
 import { withTheme, makeStyles, createStyles, ThemeProvider } from '@material-ui/styles'
 import { Box, Typography, Table, TableRow, TableCell, Theme, useTheme, TableBody, Button, CardContent, Card, TableHead, CardActions } from '@material-ui/core'
 import { formatarPreco } from 'utils'
-import { Pedido } from '../../../commons/pedidos/types'
-import { situacoesDePedidoDictionary, somarPrecoTotalPedido } from '../../../commons/pedidos/utils'
+import { situacoesDePedidoDictionary, somarPrecoTotalPedido, situacoesDoAdmin } from 'shareds/pedido-utils'
+import { Pedido } from 'types/pedido'
+import { useQuery, useMutation } from 'react-apollo'
+import { OBTER_PEDIDO, OBTER_PEDIDOS } from 'graphql/queries/pedido'
+import { ATUALIZAR_SITUACAO_PEDIDO } from 'graphql/mutations/pedido'
 
 interface Props extends RouteProps{}
 
 const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    categorias: {
-      width: 240,
-      display: 'flex',
-      flexDirection: 'column',
-    },
-    rightIcon: {
-      marginLeft: theme.spacing(1),
-    },
-    actionButton: {
-      paddingTop:0,
-      paddingBottom:0,
-    }
-  })
+  createStyles({})
 )
 
 const DetalhePedido: React.FunctionComponent<Props> = () => {
   const theme = useTheme()
+  const match = useRouteMatch<{id: string}>()
+  const history = useHistory()
 
-  // const {
-  //   data, loading, error,
-  // } = useQuery<{categoria: Categoria}>(OBTER_CATEGORIA, {
-  //   variables: {
-  //     id: match && match.params.id,
-  //   },
-  // })
-  const { loading, data, error } = {
-    data: {
-      pedido: {
-        _id: 'sasdbasdb-32-vdab-33-d',
-        nome: 'Nome Completo',
-        situacao: 'recebido',
-        itens: [
-          {
-            quantidade: 2,
-            nome: 'Bacon Super',
-            preco: 45.00,
-          },
-          {
-            quantidade: 3,
-            nome: 'Coca-cola',
-            preco: 18.00,
-          },
-        ]
-      } as Pedido,
-      errors: null,
+  const id = match && match.params.id
+
+  const {
+    data, loading, error,
+  } = useQuery<{pedido: Pedido}>(OBTER_PEDIDO, {
+    variables: {
+      id,
     },
-    loading: false,
-    error: null,
-  }
+  })
+
+  const [ atualizarSituacao, {
+    loading: loadingEnvio
+  } ] = useMutation(ATUALIZAR_SITUACAO_PEDIDO, {
+    update(cache, { data: { atualizarPedido } }) {
+      const data = cache.readQuery<{pedidos: Pedido[]}>({
+        query: OBTER_PEDIDOS
+      })
+      if (!data) return
+
+      if (situacoesDoAdmin.includes(atualizarPedido.situacao)) return
+
+      const novaListaPedidos = [
+        ...data.pedidos
+      ]
+
+      const index = novaListaPedidos.findIndex(({_id}) => _id === atualizarPedido._id)
+      if(!~index) return
+
+      novaListaPedidos.splice(index, 1)
+
+      cache.writeQuery({
+        query: OBTER_PEDIDOS,
+        data: {
+          pedidos: novaListaPedidos
+        },
+      })
+
+      history.push('/pedidos')
+    }
+  })
 
   if (loading) return <div>Carregando...</div>
   if (error) return <div>{ error }</div>
   if (!data) return <div>Sem dados...</div>
 
   const situacao = situacoesDePedidoDictionary[data.pedido.situacao]
+
+  const handleAvancarSituacao = () => {
+    const novaSituacao = situacao.proximo
+    if (!novaSituacao) return
+    atualizarSituacao({
+      variables: {
+        id,
+        pedido: {
+          situacao: novaSituacao,
+        }
+      }
+    })
+  }
+
+  const handleRejeitarSituacao = () => {
+    const novaSituacao = situacao.rejeitar
+    if (!novaSituacao) return
+    atualizarSituacao({
+      variables: {
+        id,
+        pedido: {
+          situacao: novaSituacao,
+        }
+      }
+    })
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -85,7 +112,7 @@ const DetalhePedido: React.FunctionComponent<Props> = () => {
           }}>
             <CardContent>
               <Typography variant="h5" component="h5" gutterBottom>
-                { data.pedido.nome }
+                { data.pedido.cliente.nome }
               </Typography>
               <Table>
                 <TableHead>
@@ -108,10 +135,10 @@ const DetalhePedido: React.FunctionComponent<Props> = () => {
                         { item.quantidade }
                       </TableCell>
                       <TableCell style={{ width: '100%' }}>
-                        { item.nome }
+                        { item.produto.nome }
                       </TableCell>
                       <TableCell align="right">
-                        { formatarPreco(item.preco) }
+                        { formatarPreco(item.produto.preco * item.quantidade) }
                       </TableCell>
                     </TableRow>
                   )}
@@ -137,15 +164,20 @@ const DetalhePedido: React.FunctionComponent<Props> = () => {
             <CardActions style={{
               justifyContent: 'space-between'
             }}>
-              <Button>
-                Recusar
-              </Button>
-              <Button
+              {situacao.acaoRejeitar && <Button
+                onClick={handleRejeitarSituacao}
+                disabled={loadingEnvio}
+              >
+              { situacao.acaoRejeitar }
+              </Button>}
+              {situacao.acaoProximo && <Button
                 color="primary"
                 variant="contained"
+                onClick={handleAvancarSituacao}
+                disabled={loadingEnvio}
               >
-                Aceitar
-              </Button>
+                { situacao.acaoProximo }
+              </Button>}
             </CardActions>
           </Card>
         </div>

@@ -1,9 +1,10 @@
+import { getCliente } from './../cliente/ClienteResolvers';
 import PedidoController from "../../../controllers/PedidoController"
 
 export default {
   Query: {
     pedido: async (root, { id }) => getPedido(id),
-    pedidos: async () => (await PedidoController.listar()).map(pedidoGetter),
+    pedidos: async (root, { filtros }) => (await PedidoController.listar(filtros)).map(pedidoGetter),
   },
   Mutation: <any> {
     criarPedido: async (root, input) => {
@@ -28,5 +29,10 @@ export function pedidoGetter(pedido) {
   const resolver = {
     ...obj,
   }
+  Object.defineProperty(resolver, 'cliente', {
+    async get() {
+      return getCliente(pedido.cliente)
+    }
+  })
   return resolver
 }

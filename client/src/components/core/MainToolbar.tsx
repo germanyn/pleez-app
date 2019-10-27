@@ -45,18 +45,7 @@ interface Props {
 
 const MainToolbar: React.FunctionComponent<Props> = (props) => {
   const classes = useStyles();
-  const [auth, setAuth] = React.useState(true);
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
   const location = useLocation()
-
-  function handleClose() {
-    setAnchorEl(null);
-  }
-
-  function handleMenu(event: React.MouseEvent<HTMLElement>) {
-    setAnchorEl(event.currentTarget);
-  }
 
   const rotaAtual = Object.values(rotas).find(rota=>{
     if (rota.path === '/') return
@@ -83,37 +72,6 @@ const MainToolbar: React.FunctionComponent<Props> = (props) => {
           { rotaAtual ? rotaAtual.nome : '' }
         </Typography>
         <div className={classes.spacer} />
-        {auth && (
-          <div>
-            <IconButton
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              color="inherit"
-              onClick={handleMenu}
-            >
-              <AccountCircle />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorEl}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={open}
-              onClose={handleClose}
-            >
-              <MenuItem onClick={handleClose}>Profile</MenuItem>
-              <MenuItem onClick={handleClose}>My account</MenuItem>
-            </Menu>
-          </div>
-        )}
       </Toolbar>
     </AppBar>
   )

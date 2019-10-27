@@ -38,11 +38,13 @@ const Categoria: React.FunctionComponent<Props> = (props) => {
   const match = useRouteMatch<{id: string}>()
   const history = useHistory()
 
+  const id = match && match.params.id
+
   const {
     data, loading, error,
   } = useQuery<{categoria: Categoria}>(OBTER_CATEGORIA, {
     variables: {
-      id: match && match.params.id,
+      id,
     },
   })
 
