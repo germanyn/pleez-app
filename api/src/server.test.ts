@@ -1,4 +1,5 @@
-import { ApolloServer } from 'apollo-server';
+import { Express } from 'express'
+import { Server } from 'net';
 
 global.console = {
   ...global.console,
@@ -6,15 +7,15 @@ global.console = {
 }
 
 describe('Server', () => {
-  let server: ApolloServer
-  let ready: Promise<void>
+  let app: Express
+  let server: Server
   beforeEach(async () => {
-    server = (await import('./server')).default;
-    ready = (await import('./server')).ready;
-    await ready
+    app = (await import('./server')).default;
+    server = (await import('./server')).ready;
+    await server
   });
   afterEach(async () => {
-    await server.stop()
+    await server.close()
   });
   it('Inicia o server sem crashar', async (done) => {
     expect(console.log).toHaveBeenCalledWith(`🚀 Server ready at http://localhost:4000/`)

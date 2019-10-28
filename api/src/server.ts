@@ -2,7 +2,9 @@ import express from 'express'
 import { ApolloServer } from 'apollo-server-express'
 import schema from './graphql/schema';
 
-const port = process.env.PORT || 8080;
+const {
+  PORT = 4000,
+} = process.env;
 
 const app = express()
 
@@ -20,8 +22,8 @@ if(process.env.NODE_ENV === 'production') {
   app.get(/.*/, (_req, res) => res.sendFile(__dirname + '../client/build/index.html'))
 }
 
-const ready = app.listen({ port }, () =>
-  console.log(`🚀 Server ready at http://localhost:${port}${graphServer.graphqlPath}`)
+const ready = app.listen({ port: PORT }, () =>
+  console.log(`🚀 Server ready at http://localhost:${PORT}${graphServer.graphqlPath}`)
 );
 
 export default app
