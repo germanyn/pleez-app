@@ -3,7 +3,11 @@ import gql from 'graphql-tag';
 export const OBTER_PEDIDOS = gql`
   query BuscarPedidosAdmin {
     pedidos(filtros: {
-      situacao: [ "recebido", "finalizado" ]
+      situacao: [
+        "recebido",
+        "finalizado",
+        "em-preparo"
+      ]
     }) {
       _id
       situacao
