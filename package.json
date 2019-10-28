@@ -4,7 +4,7 @@
   "description": "PleezApp: autoatendimento de bares e restaurantes",
   "main": "index.js",
   "scripts": {
-    "postinstall": "cd server && npm install",
+    "postinstall": "cd api && npm install",
     "start": "npm start --prefix api",
     "test": "jest",
     "test-w": "jest --watch"
