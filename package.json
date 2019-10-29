@@ -4,9 +4,9 @@
   "description": "PleezApp: autoatendimento de bares e restaurantes",
   "main": "index.js",
   "scripts": {
-    "postinstall": "cd api && npm install",
     "start": "npm start --prefix api",
     "test": "jest",
+    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build && cd ../api && npm install --only=dev && npm install && npm run build",
     "test-w": "jest --watch"
   },
   "repository": {

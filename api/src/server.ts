@@ -1,6 +1,7 @@
 import express from 'express'
 import { ApolloServer } from 'apollo-server-express'
 import schema from './graphql/schema';
+import path from 'path'
 
 const {
   PORT = 4000,
@@ -18,8 +19,9 @@ graphServer.applyMiddleware({
 });
 
 if(process.env.NODE_ENV === 'production') {
-  app.use(express.static(__dirname + '../client/build/'));
-  app.get(/.*/, (_req, res) => res.sendFile(__dirname + '../client/build/index.html'))
+  console.log('sanidade')
+  app.use(express.static(path.join(__dirname, '..', 'build')));
+  app.get('*', (_req, res) => res.sendFile(path.join(__dirname, '..', 'build', 'index.html')))
 }
 
 const ready = app.listen({ port: PORT }, () =>

@@ -4,6 +4,7 @@
   "ignore": ["src/**/*.spec.ts"],
   "exec": "ts-node ./src/index.ts",
   "env": {
+    "NODE_ENV": "production",
     "MONGODB_URI_DEV": "mongodb+srv://dev-local:XOVieM3T0somF3zV@cluster0-gwykp.mongodb.net/dev-pleez?retryWrites=true&w=majority",
     "MONGODB_URI_LOCAL": "mongodb://localhost:27017/pleez-app"
   }
