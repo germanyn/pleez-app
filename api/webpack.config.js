@@ -9,19 +9,13 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(graphql|gql)$/,
-        exclude: /node_modules/,
-        loader: 'graphql-tag/loader',
-      },
-      {
         test: /\.tsx?$/,
         use: 'ts-loader',
-        exclude: /node_modules/
       },
     ]
   },
   resolve: {
-    extensions: ['.mjs', '.tsx', '.ts', '.js', '.json', '.gql', '.graphql' ]
+    extensions: ['.mjs', '.tsx', '.ts', '.js', '.gql', '.graphql' ]
   },
   output: {
     filename: 'bundle.js',

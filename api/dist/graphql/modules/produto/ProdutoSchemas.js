@@ -1,3 +1,7 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const apollo_server_1 = require("apollo-server");
+exports.default = apollo_server_1.gql `
 type Produto {
   _id: ID!
   nome: String!
@@ -30,3 +34,5 @@ extend type Mutation {
   atualizarProduto(id: String!, produto: AtualizarProdutoInput!): Produto!
   deletarProduto(id: String!): Produto!
 }
+`;
+//# sourceMappingURL=ProdutoSchemas.js.map

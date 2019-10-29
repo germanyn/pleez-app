@@ -1,3 +1,7 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const apollo_server_1 = require("apollo-server");
+exports.default = apollo_server_1.gql `
 type Restaurante {
   _id: ID!
   nome: String!
@@ -25,4 +29,5 @@ extend type Mutation {
   atualizarRestaurante(id: String!, restaurante: AtualizarRestauranteInput!): Restaurante!
   deletarRestaurante(id: String): Restaurante!
 }
-
+`;
+//# sourceMappingURL=RestauranteSchemas.js.map

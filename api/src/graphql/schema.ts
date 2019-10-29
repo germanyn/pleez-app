@@ -1,14 +1,13 @@
-import 'graphql-import-node';
 import { makeExecutableSchema } from "graphql-tools";
 import { merge } from 'lodash'
 
-import ClienteSchemas from './modules/cliente/ClienteSchemas.graphql'
-import PedidoSchemas from './modules/pedido/PedidoSchemas.graphql'
-import CategoriaSchemas from './modules/categoria/CategoriaSchemas.graphql'
-import ProdutoSchemas from './modules/produto/ProdutoSchemas.graphql'
-import RestauranteSchemas from './modules/restaurante/RestauranteSchemas.graphql'
-import AuthSchemas from './modules/auth/AuthSchemas.graphql'
-import GlobalSchema from './GlobalSchema.graphql'
+import ClienteSchemas from './modules/cliente/ClienteSchemas'
+import PedidoSchemas from './modules/pedido/PedidoSchemas'
+import CategoriaSchemas from './modules/categoria/CategoriaSchemas'
+import ProdutoSchemas from './modules/produto/ProdutoSchemas'
+import RestauranteSchemas from './modules/restaurante/RestauranteSchemas'
+import AuthSchemas from './modules/auth/AuthSchemas'
+import GlobalSchema from './GlobalSchema'
 
 import ClienteResolvers from "./modules/cliente/ClienteResolvers";
 import PedidoResolvers from "./modules/pedido/PedidoResolvers";

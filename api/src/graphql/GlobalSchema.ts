@@ -1,3 +1,5 @@
+import { gql } from 'apollo-server';
+export default gql`
 type Query {
   _empty: String
 }
@@ -5,3 +7,4 @@ type Query {
 type Mutation {
   _empty: String
 }
+`

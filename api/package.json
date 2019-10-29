@@ -4,9 +4,9 @@
   "description": "Pleez API",
   "main": "src/index.ts",
   "scripts": {
-    "start": "ts-node ./src/index.ts",
+    "start": "node ./dist/index.js",
     "dev": "nodemon",
-    "build": "webpack",
+    "build": "tsc",
     "generate": "graphql-codegen --config codegen.json",
     "introspect": "apollo schema:download --endpoint=http://localhost:4000",
     "gen-types": "npm run introspect && npm run generate",
@@ -28,9 +28,10 @@
     "@types/lodash": "^4.14.138",
     "@types/mongoose": "^5.5.17",
     "@types/node": "^12.7.5",
+    "copyfiles": "^2.1.1",
     "nodemon": "^1.19.2",
     "ts-loader": "^6.2.1",
-    "ts-node": "^8.3.0",
+    "ts-node": "^8.4.1",
     "typescript": "^3.6.4",
     "webpack": "^4.40.2",
     "webpack-cli": "^3.3.8",
@@ -47,6 +48,7 @@
     "graphql-tag": "^2.10.1",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
-    "mongoose": "^5.7.1"
+    "mongoose": "^5.7.7",
+    "raw-loader": "^3.1.0"
   }
 }

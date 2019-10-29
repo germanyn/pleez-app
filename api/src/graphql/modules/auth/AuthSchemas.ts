@@ -1,3 +1,5 @@
+import { gql } from 'apollo-server';
+export default gql`
 type Login {
   restaurante: Restaurante
   token: String!
@@ -15,3 +17,4 @@ extend type Mutation {
   registrarRestaurante(registro: RegistroDeRestaurante): Login!
   logarRestaurante(email: String!, senha: String!): Login!
 }
+`

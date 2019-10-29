@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "outDir": "./dist/",
+    "rootDir": "./src",
     "sourceMap": true,
     "module": "commonjs",
     "target": "esnext",
@@ -17,8 +18,9 @@
     "node_modules",
     "**/*.test.ts"
   ],
+  "files": ["src/index.ts"],
   "include": [
     "../commons/**/*.ts",
-    "src/**/*"
+    "src/**/*.ts"
   ]
 }
