@@ -2,12 +2,14 @@ import express from 'express'
 import { ApolloServer } from 'apollo-server-express'
 import schema from './graphql/schema';
 import path from 'path'
+import cors from 'cors'
 
 const {
   PORT = 4000,
 } = process.env;
 
 const app = express()
+app.use(cors())
 
 const graphServer = new ApolloServer({
   schema,
