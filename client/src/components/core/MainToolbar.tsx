@@ -2,9 +2,8 @@ import React from 'react'
 import { AppBar, IconButton, Typography, Toolbar, Theme, Menu, MenuItem } from "@material-ui/core";
 import MenuIcon from '@material-ui/icons/Menu';
 import { makeStyles, createStyles, withTheme } from '@material-ui/styles';
-import AccountCircle from '@material-ui/icons/AccountCircle';
 import clsx from 'clsx';
-import { useRouteMatch, useLocation } from 'react-router';
+import { useLocation } from 'react-router';
 import rotas from 'rotas';
 
 
