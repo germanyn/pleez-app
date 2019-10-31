@@ -23,6 +23,9 @@ const useStyles = makeStyles(() =>
 const App = () => {
   const classes = useStyles()
   const [drawerOpen, setDrawerOpen] = React.useState(false);
+  
+  history.listen(()=>setDrawerOpen(false))
+  
   return (
     <ApolloProvider client={client}>
       <ThemeProvider theme={theme}>

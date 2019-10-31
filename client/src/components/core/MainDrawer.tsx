@@ -3,7 +3,7 @@ import { makeStyles, createStyles, useTheme, withTheme } from "@material-ui/styl
 import { Drawer, List, ListItem, Divider, ListItemText, Theme, useMediaQuery, ListItemIcon, IconButton } from "@material-ui/core";
 import logo from 'assets/logo.png'
 import Icon from '@mdi/react'
-import { Link as RouterLink, LinkProps as RouterLinkProps } from 'react-router-dom';
+import { Link as RouterLink, LinkProps as RouterLinkProps, useHistory } from 'react-router-dom';
 import rotas from 'rotas';
 import clsx from 'clsx';
 import { mdiChevronLeft } from '@mdi/js';

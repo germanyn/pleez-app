@@ -1,11 +1,10 @@
 import mongoose = require('mongoose')
 
-const DB_NAME = process.env.MONGO_DB || 'pleez-local'
+const DB_NAME = process.env.MONGO_DB || 'pleez-app'
 
 const url = process.env.NODE_ENV === 'production'
-// ? `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0-gwykp.mongodb.net/${DB_NAME}?retryWrites=true&w=majority`
-? `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0-gwykp.mongodb.net/${DB_NAME}?retryWrites=true&w=majority`
-: `mongodb://localhost:27017/${DB_NAME}?retryWrites=true&w=majority`
+  ? `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0-gwykp.mongodb.net/${DB_NAME}?retryWrites=true&w=majority`
+  : `mongodb://localhost:27017/${DB_NAME}?retryWrites=true&w=majority`
 
 const configs: mongoose.ConnectionOptions = {
   useNewUrlParser: true,
